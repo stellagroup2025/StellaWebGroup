@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { Inter, Poppins, Playfair_Display, Space_Grotesk } from "next/font/google"
 import { siteConfig } from "../config/site"
 import { ScrollToTop } from "../components/ScrollToTop"
+import { Cursor } from "../components/ui/Cursor"
+import { Preloader } from "../components/ui/Preloader"
 import "../app/globals.css"
 
 const inter = Inter({
@@ -72,7 +74,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-    generator: 'v0.app'
+  generator: 'v0.app'
 }
 
 export default function RootLayout({
@@ -81,8 +83,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es">
-      <body className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${spaceGrotesk.variable}`}>
+    <html lang="es" suppressHydrationWarning>
+      <body className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${spaceGrotesk.variable} md:cursor-none`}>
+        <Preloader />
+        <Cursor />
         <ScrollToTop />
         {children}
       </body>

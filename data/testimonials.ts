@@ -1,4 +1,11 @@
-export const testimonials = [
+export type Testimonial = {
+  quote: string
+  author: string
+  role: string
+  company: string
+}
+
+export const testimonials: Testimonial[] = [
   {
     quote:
       "Transformaron completamente nuestra operación logística. La plataforma es intuitiva y los resultados superaron nuestras expectativas.",

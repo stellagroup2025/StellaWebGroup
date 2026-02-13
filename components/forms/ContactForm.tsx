@@ -58,7 +58,7 @@ export function ContactForm({ onFormActiveChange }: ContactFormProps) {
 
       // Reset success message after 5 seconds
       setTimeout(() => setIsSuccess(false), 5000)
-    } catch (err) {
+    } catch {
       setError("Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.")
     } finally {
       setIsSubmitting(false)

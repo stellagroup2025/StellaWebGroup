@@ -1,115 +1,153 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
+import { useRef } from "react"
 import { Button } from "../ui/button"
 import { Container } from "../ui/Container"
 import { ArrowRight, Sparkles } from "lucide-react"
-import { useState, useEffect } from "react"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { Magnetic } from "../animations/Magnetic"
+import { TextAssemble } from "../ui/TextAssemble"
 
-const backgroundImages = [
-  "/modern-developer-office.png",
-  "/technology-workspace-with-multiple-monitors-and-co.jpg",
-  "/professional-team-collaborating-on-software-projec.jpg",
-  "/modern-tech-office.png",
-]
+gsap.registerPlugin(ScrollTrigger)
 
 export function Hero() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const containerRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsTransitioning(true)
-      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length)
+  // Refs for elements to animate
+  const badgeRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const textRef = useRef<HTMLParagraphElement>(null)
+  const buttonsRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
 
-      setTimeout(() => {
-        setIsTransitioning(false)
-      }, 1000)
-    }, 5000)
+  useGSAP(
+    () => {
+      const tl = gsap.timeline()
 
-    return () => clearInterval(interval)
-  }, [])
+      // 1. Entrance Animation (Fade Up)
+      // We animate TO the visible state because elements start with invisible/opacity-0 classes
+      // Removed titleRef from here as it is now handled by TextReveal (Framer Motion)
+      tl.to([badgeRef.current, textRef.current, buttonsRef.current, statsRef.current], {
+        y: 0,
+        autoAlpha: 1, // handles visibility + opacity
+        duration: 1.5, // Slower entrance
+        stagger: 0.15,
+        ease: "power3.out",
+        delay: 0.2,
+      })
 
-  const currentTextColor = isTransitioning ? "text-brand" : "text-black"
+      // 2. Parallax Effect (ScrollTrigger)
+      // "Airy" feel: Elements move at different speeds relative to scroll
+
+      // Title moves slightly faster than scroll (feels closer/floaty)
+      // titleRef parallax is removed as TextReveal handles its own animation
+      // gsap.to(titleRef.current, {
+      //   y: -300, // Increased from -100 to make specific effect obvious
+      //   ease: "none",
+      //   scrollTrigger: {
+      //     trigger: containerRef.current,
+      //     start: "top top",
+      //     end: "bottom top",
+      //     scrub: true,
+      //   },
+      // })
+
+      // Text moves a bit slower than title
+      gsap.to(textRef.current, {
+        y: -150, // Increased from -50
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      })
+
+      // Buttons stay more grounded or move oppositely slightly for contrast
+      gsap.to(buttonsRef.current, {
+        y: -20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      })
+
+    },
+    { scope: containerRef }
+  )
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section ref={containerRef} className="relative min-h-screen flex items-center">
+      {/* Background gradients (kept from original) */}
       <div className="absolute inset-0">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentImageIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0"
-          >
-            <img
-              src={backgroundImages[currentImageIndex] || "/placeholder.svg"}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-br from-background/50 via-background/40 to-background/30" />
       </div>
-
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent" />
 
       <Container className="relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+
+          <div ref={badgeRef} className="invisible opacity-0 translate-y-4">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand/10 text-brand mb-6">
               <Sparkles className="h-4 w-4" />
               <span className="text-sm font-medium">Soluciones tecnológicas de alto impacto</span>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.h1
+
+          <h1
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-balance leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Construimos software que{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-slate-400">
-              impulsa tu negocio
-            </span>
-          </motion.h1>
 
-          <motion.p
-            className={`text-lg md:text-xl ${currentTextColor} mb-8 max-w-2xl mx-auto text-pretty transition-colors duration-1000`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            {/* 1. Base Text - Sci-Fi Swarm Assembly */}
+            <TextAssemble text="Construimos software que" delay={2.5} />{" "}
+
+            {/* 2. Gradient Text */}
+            <TextAssemble
+              text="impulsa tu negocio"
+              gradient={true}
+              delay={2.7}
+            />
+          </h1>
+
+          <p
+            ref={textRef}
+            className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-pretty invisible opacity-0 translate-y-4"
           >
             Desarrollamos aplicaciones web, integraciones y automatizaciones que transforman ideas en resultados
             medibles
-          </motion.p>
+          </p>
 
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+          <div
+            ref={buttonsRef}
+            className="flex flex-col sm:flex-row gap-12 justify-center invisible opacity-0 translate-y-4"
           >
-            <Button size="lg" asChild>
-              <a href="/contacto">
-                Hablar con nosotros
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </a>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <a href="/proyectos">Ver casos de éxito</a>
-            </Button>
-          </motion.div>
+            <Magnetic>
+              <Button size="lg" asChild>
+                <a href="/contacto">
+                  Hablar con nosotros
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+            </Magnetic>
 
-          <motion.div
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            <Magnetic>
+              <Button size="lg" variant="outline" asChild>
+                <a href="/proyectos">Ver casos de éxito</a>
+              </Button>
+            </Magnetic>
+          </div>
+
+          <div
+            ref={statsRef}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto invisible opacity-0 translate-y-4"
           >
             {[
               { value: "50+", label: "Proyectos entregados" },
@@ -119,10 +157,10 @@ export function Hero() {
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-3xl font-bold text-brand mb-1">{stat.value}</div>
-                <div className={`text-sm ${currentTextColor} transition-colors duration-1000`}>{stat.label}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>

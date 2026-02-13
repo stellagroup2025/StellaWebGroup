@@ -31,7 +31,7 @@
  * }
  */
 
-export async function sendContactEmail(data: any) {
+export async function sendContactEmail(data: Record<string, unknown>) {
   // Mock implementation
   console.log("[v0] Email would be sent:", data)
   return { success: true }
