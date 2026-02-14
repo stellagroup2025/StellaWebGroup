@@ -228,7 +228,7 @@ function ServiceCard({
     >
       <div
         style={{ transform: "translateZ(30px)" }}
-        className={`relative w-full aspect-[4/3] rounded-xl border overflow-hidden transition-all duration-300 ${isActive ? "bg-card border-brand/50 shadow-2xl" : "bg-card/50 border-border"
+        className={`relative w-full aspect-[4/3] rounded-2xl border overflow-hidden transition-all duration-300 ${isActive ? "bg-card border-white/15 shadow-sm" : "bg-card/50 border-white/[0.06]"
           }`}
       >
         {/* Background Image */}
@@ -265,7 +265,7 @@ function ServiceCard({
           className="absolute inset-0 flex flex-col justify-end p-6 text-left"
         >
           {/* Icon Badge */}
-          <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-lg bg-brand/20 backdrop-blur-md border border-brand/10 text-brand shadow-lg">
+          <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-brand shadow-sm">
             <Icon className="w-6 h-6" />
           </div>
 

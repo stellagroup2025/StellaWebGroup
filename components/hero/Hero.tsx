@@ -82,7 +82,7 @@ export function Hero() {
   )
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center">
+    <section ref={containerRef} className="relative min-h-screen flex items-center pt-24">
       {/* Background gradients (kept from original) */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-background/50 via-background/40 to-background/30" />
@@ -94,9 +94,12 @@ export function Hero() {
         <div className="max-w-4xl mx-auto text-center">
 
           <div ref={badgeRef} className="invisible opacity-0 translate-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand/10 text-brand mb-6">
-              <Sparkles className="h-4 w-4" />
-              <span className="text-sm font-medium">Soluciones tecnológicas de alto impacto</span>
+            <div className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand mb-6 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+              {/* Glass light reflection */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
+              <Sparkles className="relative h-4 w-4" />
+              <span className="relative text-sm font-medium">Soluciones tecnológicas de alto impacto</span>
             </div>
           </div>
 
@@ -129,17 +132,21 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-12 justify-center invisible opacity-0 translate-y-4"
           >
             <Magnetic>
-              <Button size="lg" asChild>
-                <a href="/contacto">
-                  Hablar con nosotros
-                  <ArrowRight className="ml-2 h-4 w-4" />
+              <Button size="lg" asChild className="relative rounded-full h-12 px-8 bg-foreground text-background hover:bg-foreground/90 overflow-hidden shadow-[0_2px_16px_rgba(0,0,0,0.1)]">
+                <a href="/contacto" className="flex items-center gap-2">
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
+                  <span className="relative">Hablar con nosotros</span>
+                  <ArrowRight className="relative ml-1 h-4 w-4" />
                 </a>
               </Button>
             </Magnetic>
 
             <Magnetic>
-              <Button size="lg" variant="outline" asChild>
-                <a href="/proyectos">Ver casos de éxito</a>
+              <Button size="lg" variant="outline" asChild className="relative rounded-full h-12 px-8 bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 hover:bg-white/90 dark:hover:bg-white/15 overflow-hidden shadow-[0_2px_16px_rgba(0,0,0,0.06)]">
+                <a href="/proyectos" className="flex items-center gap-2">
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+                  <span className="relative">Ver casos de éxito</span>
+                </a>
               </Button>
             </Magnetic>
           </div>
@@ -154,8 +161,12 @@ export function Hero() {
               { value: "24/7", label: "Soporte técnico" },
               { value: "5 años", label: "De experiencia" },
             ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl font-bold text-brand mb-1">{stat.value}</div>
+              <div key={index} className="flex flex-col items-center text-center">
+                <div className="relative w-20 h-20 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 flex items-center justify-center mb-3 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
+                  <span className="relative text-2xl font-bold text-brand">{stat.value}</span>
+                </div>
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
               </div>
             ))}

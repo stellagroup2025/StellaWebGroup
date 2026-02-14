@@ -22,57 +22,35 @@ export function CallToAction() {
         <section className="py-20 px-4 md:px-8">
             <div
                 ref={containerRef}
-                className="relative w-full max-w-7xl mx-auto overflow-hidden rounded-[2.5rem] bg-zinc-950 dark:bg-black border border-white/10 shadow-2xl"
+                className="relative w-full max-w-7xl mx-auto overflow-hidden rounded-[2.5rem] bg-zinc-950/90 dark:bg-black/90 backdrop-blur-xl border border-white/[0.08] shadow-sm"
             >
                 {/* --- Background Effects --- */}
 
-                {/* 1. Aurora Gradients */}
-                <div className="absolute inset-0 opacity-60">
+                {/* Subtle gradient glow */}
+                <div className="absolute inset-0 opacity-30">
                     <motion.div
                         animate={{
-                            rotate: [0, 360],
-                            scale: [1, 1.2, 1],
+                            scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                            duration: 15,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        className="absolute -top-[30%] -left-[10%] w-[60%] h-[60%] rounded-full bg-brand blur-[120px] opacity-40"
+                    />
+                    <motion.div
+                        animate={{
+                            scale: [1, 1.15, 1],
                         }}
                         transition={{
                             duration: 20,
                             repeat: Infinity,
-                            ease: "linear"
-                        }}
-                        className="absolute -top-[50%] -left-[20%] w-[80%] h-[80%] rounded-full bg-brand blur-[100px] opacity-40 mix-blend-screen"
-                    />
-                    <motion.div
-                        animate={{
-                            rotate: [360, 0],
-                            scale: [1, 1.3, 1],
-                        }}
-                        transition={{
-                            duration: 25,
-                            repeat: Infinity,
-                            ease: "linear"
-                        }}
-                        className="absolute top-[20%] -right-[20%] w-[60%] h-[60%] rounded-full bg-purple-600 blur-[100px] opacity-30 mix-blend-screen"
-                    />
-                    <motion.div
-                        animate={{
-                            x: [-100, 100],
-                            y: [-50, 50],
-                        }}
-                        transition={{
-                            duration: 10,
-                            repeat: Infinity,
-                            repeatType: "mirror",
                             ease: "easeInOut"
                         }}
-                        className="absolute bottom-[-20%] left-[20%] w-[70%] h-[70%] rounded-full bg-blue-500 blur-[120px] opacity-30 mix-blend-screen"
+                        className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-500 blur-[120px] opacity-30"
                     />
                 </div>
-
-                {/* 2. Noise Texture (Cinematic Feel) */}
-                <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay"
-                    style={{ opacity: 0.05 }}></div>
-
-                {/* 3. Grid Overlay (Tech Feel) */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
 
                 {/* --- Content --- */}
                 <div className="relative z-10 p-12 md:p-24 flex flex-col items-center text-center">
@@ -126,7 +104,7 @@ export function CallToAction() {
                             <Magnetic>
                                 <Button
                                     size="lg"
-                                    className="bg-white !text-black hover:bg-zinc-200 h-14 px-8 rounded-full text-base font-semibold shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] transition-shadow"
+                                    className="bg-white !text-black hover:bg-zinc-100 h-14 px-8 rounded-full text-base font-semibold shadow-sm hover:shadow-md transition-shadow"
                                     asChild
                                 >
                                     <a href="/contacto" className="flex items-center gap-2">

@@ -35,7 +35,7 @@ export function TestimonialCard({ quote, author, role, company }: TestimonialCar
       onMouseMove={handleMouseMove}
       onMouseEnter={handleFocus}
       onMouseLeave={handleBlur}
-      className="relative p-6 rounded-xl bg-card border border-border overflow-hidden group hover:border-brand/30 transition-colors duration-300"
+      className="relative p-6 rounded-2xl bg-white/5 dark:bg-white/[0.03] backdrop-blur-md border border-white/10 dark:border-white/[0.06] overflow-hidden group hover:border-brand/20 transition-all duration-300"
     >
       {/* Spotlight Gradient */}
       <div

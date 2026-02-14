@@ -48,7 +48,7 @@ export default function HomePage() {
           <Hero />
 
           {/* Services */}
-          <Section id="servicios" className="bg-transparent/30">
+          <Section id="servicios" className="">
             <div className="w-full">
               <div className="text-center mb-12 px-4">
                 <Badge className="mb-4">Nuestros Servicios</Badge>
@@ -65,7 +65,7 @@ export default function HomePage() {
           </Section>
 
           {/* Process */}
-          <Section id="proceso" className="bg-transparent/30">
+          <Section id="proceso" className="">
             <Container>
               <div className="text-center mb-12">
                 <Badge className="mb-4">Nuestro Proceso</Badge>
@@ -79,7 +79,7 @@ export default function HomePage() {
           </Section>
 
           {/* Testimonials */}
-          <Section className="bg-transparent/30">
+          <Section className="">
             <Container>
               <div className="text-center mb-12">
                 <Badge className="mb-4">Testimonios</Badge>

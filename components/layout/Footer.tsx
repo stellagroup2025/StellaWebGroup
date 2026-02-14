@@ -33,7 +33,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-background relative z-50">
+    <footer className="border-t border-white/10 dark:border-white/[0.06] bg-background/80 backdrop-blur-lg relative z-50">
       <Container>
         <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Column */}
@@ -52,7 +52,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-md bg-muted hover:bg-brand hover:text-brand-foreground transition-colors flex items-center justify-center"
+                  className="w-9 h-9 rounded-lg bg-white/5 dark:bg-white/[0.03] border border-white/10 dark:border-white/[0.06] hover:bg-brand/10 hover:border-brand/20 transition-all flex items-center justify-center"
                   aria-label={social.label}
                 >
                   <social.icon className="h-4 w-4" />

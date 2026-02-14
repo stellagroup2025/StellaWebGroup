@@ -63,11 +63,14 @@ export function ProcessSteps({ steps }: ProcessStepsProps) {
           className="relative"
         >
           <div className="relative z-10 flex flex-col items-center text-center">
-            <div className="relative z-10 w-16 h-16 rounded-full bg-background flex items-center justify-center mb-4 shadow-sm">
-              <span className="text-2xl font-bold text-brand">{step.number}</span>
+            <div className="relative w-16 h-16 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 flex items-center justify-center mb-4 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+              {/* Glass light reflections */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
+              <span className="relative text-2xl font-bold text-brand">{step.number}</span>
             </div>
-            <h3 className="relative z-10 text-xl font-semibold mb-2 [text-shadow:_0_0_8px_var(--background),_0_0_16px_var(--background)]">{step.title}</h3>
-            <p className="relative z-10 text-muted-foreground [text-shadow:_0_0_8px_var(--background),_0_0_16px_var(--background)]">{step.description}</p>
+            <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+            <p className="text-muted-foreground">{step.description}</p>
           </div>
           {/* Connector line (hidden on mobile, purely decorative) */}
           {index < steps.length - 1 && (
