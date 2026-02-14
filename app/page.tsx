@@ -48,16 +48,19 @@ export default function HomePage() {
           <Hero />
 
           {/* Services */}
-          <Section id="servicios" className="py-4 md:py-8">
+          <Section id="servicios" className="pt-12 md:pt-20 pb-4 md:pb-8">
             <div className="w-full">
-              <div className="text-center mb-6 px-4">
-                <div className="flex items-center gap-4 justify-center mb-4">
+              <div className="text-center mb-12 px-4">
+                <div className="flex items-center gap-4 justify-center mb-10">
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
                   <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Nuestros Servicios</Badge>
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
                 </div>
-                <Heading level={2} className="mb-4">
-                  Soluciones que impulsan tu crecimiento
+                <Heading level={2} className="mb-6">
+                  Soluciones que impulsan tu{" "}
+                  <span className="font-serif italic bg-gradient-to-r from-brand via-blue-300 to-brand bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
+                    crecimiento
+                  </span>
                 </Heading>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                   Transformamos ideas en productos digitales de alto rendimiento
@@ -69,16 +72,20 @@ export default function HomePage() {
           </Section>
 
           {/* Process */}
-          <Section id="proceso" className="py-4 md:py-8">
+          <Section id="proceso" className="py-12 md:py-20">
             <Container>
-              <div className="text-center mb-6">
-                <div className="flex items-center gap-4 justify-center mb-4">
+              <div className="text-center mb-12">
+                <div className="flex items-center gap-4 justify-center mb-10">
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
                   <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Nuestro Proceso</Badge>
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
                 </div>
-                <Heading level={2} className="mb-4">
-                  De la idea a la realidad en 4 pasos
+                <Heading level={2} className="mb-6">
+                  De la idea a la{" "}
+                  <span className="font-serif italic bg-gradient-to-r from-brand via-blue-300 to-brand bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
+                    realidad
+                  </span>{" "}
+                  en 4 pasos
                 </Heading>
               </div>
 
@@ -87,16 +94,19 @@ export default function HomePage() {
           </Section>
 
           {/* Testimonials */}
-          <Section className="py-4 md:py-8">
+          <Section className="py-12 md:py-20">
             <Container>
-              <div className="text-center mb-6">
-                <div className="flex items-center gap-4 justify-center mb-4">
+              <div className="text-center mb-12">
+                <div className="flex items-center gap-4 justify-center mb-10">
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
                   <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Testimonios</Badge>
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
                 </div>
-                <Heading level={2} className="mb-4">
-                  Lo que dicen nuestros clientes
+                <Heading level={2} className="mb-6">
+                  Lo que dicen nuestros{" "}
+                  <span className="font-serif italic bg-gradient-to-r from-brand via-blue-300 to-brand bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
+                    clientes
+                  </span>
                 </Heading>
               </div>
 
