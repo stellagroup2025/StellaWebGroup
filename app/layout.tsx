@@ -63,6 +63,10 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     creator: "@stella", // Updated Twitter handle to match company name
   },
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   robots: {
     index: true,
     follow: true,

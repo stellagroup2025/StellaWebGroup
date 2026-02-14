@@ -19,7 +19,8 @@
       "Bash(cmd.exe /c \"tasklist | findstr node\")",
       "Bash(cmd.exe /c \"rmdir /s /q c:\\\\Users\\\\reyes\\\\OneDrive\\\\Documentos\\\\StellaWebGroup\\\\.next\")",
       "Bash(cmd.exe /c \"dir c:\\\\Users\\\\reyes\\\\OneDrive\\\\Documentos\\\\StellaWebGroup\\\\.next\")",
-      "Bash(cmd.exe /c \"rmdir /s /q C:\\\\Users\\\\reyes\\\\.next-stella 2>nul\")"
+      "Bash(cmd.exe /c \"rmdir /s /q C:\\\\Users\\\\reyes\\\\.next-stella 2>nul\")",
+      "Bash(node -e:*)"
     ]
   }
 }
