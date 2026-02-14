@@ -63,7 +63,7 @@ export function ProcessSteps({ steps }: ProcessStepsProps) {
           className="relative"
         >
           <div className="relative z-10 flex flex-col items-center text-center">
-            <div className="relative w-16 h-16 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 flex items-center justify-center mb-4 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+            <div className="relative w-16 h-16 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl flex items-center justify-center mb-4 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
               {/* Glass light reflections */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />

@@ -53,7 +53,7 @@ export default function HomePage() {
               <div className="text-center mb-12 px-4">
                 <div className="flex items-center gap-4 justify-center mb-10">
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
-                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Nuestros Servicios</Badge>
+                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Nuestros Servicios</Badge>
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
                 </div>
                 <Heading level={2} className="mb-6">
@@ -77,7 +77,7 @@ export default function HomePage() {
               <div className="text-center mb-12">
                 <div className="flex items-center gap-4 justify-center mb-10">
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
-                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Nuestro Proceso</Badge>
+                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Nuestro Proceso</Badge>
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
                 </div>
                 <Heading level={2} className="mb-6">
@@ -99,7 +99,7 @@ export default function HomePage() {
               <div className="text-center mb-12">
                 <div className="flex items-center gap-4 justify-center mb-10">
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
-                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Testimonios</Badge>
+                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Testimonios</Badge>
                   <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
                 </div>
                 <Heading level={2} className="mb-6">

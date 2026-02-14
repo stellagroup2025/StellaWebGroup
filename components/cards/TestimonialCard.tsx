@@ -51,7 +51,7 @@ export function TestimonialCard({ quote, author, role, company }: TestimonialCar
 
       <div className="relative z-10">
         <Quote className="h-8 w-8 text-brand/30 mb-4 group-hover:text-brand/60 transition-colors" />
-        <p className="text-muted-foreground mb-6 leading-relaxed italic group-hover:text-foreground transition-colors mix-blend-color-dodge-">&quot;{quote}&quot;</p>
+        <p className="text-muted-foreground mb-6 leading-relaxed italic group-hover:text-foreground transition-colors mix-blend-color-dodge">&quot;{quote}&quot;</p>
         <div>
           <p className="font-semibold">{author}</p>
           <p className="text-sm text-muted-foreground">

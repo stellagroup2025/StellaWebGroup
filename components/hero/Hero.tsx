@@ -68,7 +68,7 @@ export function Hero() {
         <div className="max-w-4xl mx-auto text-center">
 
           <div ref={badgeRef} className="invisible opacity-0 translate-y-4">
-            <div className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand mb-6 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+            <div className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl text-brand mb-6 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
               {/* Glass light reflection */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
@@ -138,7 +138,7 @@ export function Hero() {
               { value: "5 años", label: "De experiencia" },
             ].map((stat, index) => (
               <div key={index} className="flex flex-col items-center text-center">
-                <div className="relative w-20 h-20 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 flex items-center justify-center mb-3 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+                <div className="relative w-20 h-20 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl flex items-center justify-center mb-3 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
                   <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
                   <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
                   <span className="relative text-2xl font-bold text-brand">{stat.value}</span>

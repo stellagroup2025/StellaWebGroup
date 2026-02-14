@@ -132,7 +132,7 @@ export function ServicesCarousel() {
           variant="ghost"
           size="icon"
           onClick={prevSlide}
-          className="relative w-9 h-9 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/15 shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden hover:bg-white/80 dark:hover:bg-white/15 md:hidden"
+          className="relative w-9 h-9 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden hover:bg-white/80 dark:hover:bg-white/15 md:hidden"
           aria-label="Anterior servicio"
         >
           <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
@@ -140,7 +140,7 @@ export function ServicesCarousel() {
         </Button>
 
         {/* Glass pill dots */}
-        <div className="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/15 shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
+        <div className="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
           <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
           {services.map((_, index) => (
             <button
@@ -150,7 +150,7 @@ export function ServicesCarousel() {
               aria-label={`Ir al servicio ${index + 1}`}
             >
               {/* Glass base */}
-              <div className={`absolute inset-0 rounded-full ${index === activeIndex ? "bg-brand/80 shadow-[0_0_8px_rgba(59,130,246,0.4)]" : "bg-brand/20 dark:bg-white/20 border border-brand/15 dark:border-white/25"}`} />
+              <div className={`absolute inset-0 rounded-full ${index === activeIndex ? "bg-brand/80 shadow-[0_0_8px_rgba(59,130,246,0.4)]" : "bg-brand/20 dark:bg-white/20"}`} />
               {/* Top light reflection */}
               <div className={`absolute inset-0 rounded-full bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-white/20 pointer-events-none ${index === activeIndex ? "from-white/40" : ""}`} />
             </button>
@@ -161,7 +161,7 @@ export function ServicesCarousel() {
           variant="ghost"
           size="icon"
           onClick={nextSlide}
-          className="relative w-9 h-9 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/15 shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden hover:bg-white/80 dark:hover:bg-white/15 md:hidden"
+          className="relative w-9 h-9 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden hover:bg-white/80 dark:hover:bg-white/15 md:hidden"
           aria-label="Siguiente servicio"
         >
           <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
@@ -272,7 +272,7 @@ function ServiceCard({
           className="absolute inset-0 flex flex-col justify-end p-6 text-left"
         >
           {/* Icon Badge */}
-          <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 text-brand shadow-sm">
+          <div className="mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md text-brand shadow-sm">
             <Icon className="w-6 h-6" />
           </div>
 
