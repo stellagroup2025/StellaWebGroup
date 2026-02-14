@@ -7,6 +7,7 @@ import { Button } from "../ui/button"
 import { Heading } from "../ui/Heading"
 import { Magnetic } from "../animations/Magnetic"
 import { ArrowRight, MessageSquare } from "lucide-react"
+import Link from "next/link"
 
 function WhiteParticles() {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -338,12 +339,12 @@ export function CallToAction() {
                                     className="relative !bg-white/80 backdrop-blur-xl !text-zinc-900 hover:!bg-white/90 h-14 px-8 rounded-full text-base font-semibold overflow-hidden shadow-[0_4px_24px_rgba(255,255,255,0.2)]"
                                     asChild
                                 >
-                                    <a href="/contacto" className="flex items-center gap-2">
+                                    <Link href="/contacto" className="flex items-center gap-2">
                                         <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/90 via-transparent to-transparent pointer-events-none" />
                                         <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none translate-x-[-20%]" />
                                         <MessageSquare className="relative w-5 h-5 text-zinc-900" />
                                         <span className="relative text-zinc-900">Empezar ahora</span>
-                                    </a>
+                                    </Link>
                                 </Button>
                             </Magnetic>
 
@@ -354,12 +355,12 @@ export function CallToAction() {
                                     className="relative !bg-white/10 backdrop-blur-xl border-0 !text-white hover:!bg-white/15 h-14 px-8 rounded-full text-base overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)]"
                                     asChild
                                 >
-                                    <a href="/proyectos" className="flex items-center gap-2">
+                                    <Link href="/proyectos" className="flex items-center gap-2">
                                         <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
                                         <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none translate-x-[-20%]" />
                                         <span className="relative">Ver nuestro trabajo</span>
                                         <ArrowRight className="relative w-5 h-5" />
-                                    </a>
+                                    </Link>
                                 </Button>
                             </Magnetic>
                         </motion.div>

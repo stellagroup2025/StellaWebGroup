@@ -8,13 +8,11 @@ export function Preloader() {
     const [count, setCount] = useState(0)
 
     useEffect(() => {
-        // 1. Lock Body Scroll
         document.body.style.overflow = "hidden"
 
-        // 2. Counter Logic
         let start = 0
         const end = 100
-        const duration = 2000 // 2 seconds total load time
+        const duration = 2000
         const incrementTime = duration / end
 
         const timer = setInterval(() => {
@@ -22,7 +20,6 @@ export function Preloader() {
             setCount(start)
             if (start === end) {
                 clearInterval(timer)
-                // 3. Wait a moment at 100% before lifting the curtain
                 setTimeout(() => {
                     setIsLoading(false)
                     document.body.style.overflow = "auto"
@@ -36,9 +33,6 @@ export function Preloader() {
         }
     }, [])
 
-    // Calculate dynamic background color (Black -> White)
-    // At 0%: rgb(0,0,0) -> At 100%: rgb(255,255,255)
-    // We clamp it slightly to avoid pure white overshoot if needed, but pure is fine.
     const percentage = count / 100
     const grayValue = Math.round(255 * percentage)
     const backgroundColor = `rgb(${grayValue}, ${grayValue}, ${grayValue})`
@@ -55,19 +49,16 @@ export function Preloader() {
                     exit={{ y: "-100%" }}
                     transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                 >
-                    {/* Content Wrapper with Blend Mode for perfect contrast */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, y: -100, transition: { duration: 0.4 } }}
                         className="relative flex items-center justify-center mix-blend-difference"
                     >
-                        {/* 1. The Percent Counter */}
                         <span className="text-6xl md:text-8xl font-bold font-display tracking-tighter text-white">
                             {count}%
                         </span>
 
-                        {/* 2. Rotating Text Ring (Orbit) */}
                         <motion.div
                             animate={{ rotate: 360 }}
                             transition={{ duration: 10, repeat: Infinity, ease: "linear" }}

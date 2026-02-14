@@ -9,6 +9,7 @@ import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Magnetic } from "../animations/Magnetic"
 import { TextAssemble } from "../ui/TextAssemble"
+import Link from "next/link"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -106,22 +107,22 @@ export function Hero() {
           >
             <Magnetic>
               <Button size="lg" asChild className="relative rounded-full h-14 px-8 !bg-black/70 dark:!bg-white/10 backdrop-blur-xl !text-white border-0 hover:!bg-black/80 dark:hover:!bg-white/15 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] text-base font-semibold">
-                <a href="/contacto" className="flex items-center gap-2">
+                <Link href="/contacto" className="flex items-center gap-2">
                   <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
                   <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none translate-x-[-20%]" />
                   <span className="relative">Hablar con nosotros</span>
                   <ArrowRight className="relative ml-1 h-4 w-4" />
-                </a>
+                </Link>
               </Button>
             </Magnetic>
 
             <Magnetic>
               <Button size="lg" variant="outline" asChild className="relative rounded-full h-14 px-8 !bg-white/90 dark:!bg-white/10 backdrop-blur-xl border-0 !text-zinc-900 dark:!text-white hover:!bg-white/95 dark:hover:!bg-white/15 overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08),0_8px_32px_rgba(0,0,0,0.06)] text-base font-semibold">
-                <a href="/proyectos" className="flex items-center gap-2">
+                <Link href="/proyectos" className="flex items-center gap-2">
                   <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/95 via-white/40 to-transparent dark:from-white/10 dark:via-transparent pointer-events-none" />
                   <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/60 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
                   <span className="relative">Ver casos de éxito</span>
-                </a>
+                </Link>
               </Button>
             </Magnetic>
           </div>
