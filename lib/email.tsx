@@ -31,8 +31,8 @@
  * }
  */
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function sendContactEmail(data: Record<string, unknown>) {
-  // Mock implementation
-  console.log("[v0] Email would be sent:", data)
+  // TODO: Implementar envío real (ver comentario arriba)
   return { success: true }
 }

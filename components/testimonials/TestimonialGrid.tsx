@@ -4,7 +4,6 @@ import { useMemo } from "react"
 
 import { motion } from "framer-motion"
 import { TestimonialCard } from "../cards/TestimonialCard"
-import { type Testimonial } from "../../data/testimonials" // Will fix by exporting type soon
 
 interface TestimonialGridProps {
     testimonials: {

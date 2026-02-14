@@ -2,17 +2,15 @@ import { Navbar } from "../components/layout/Navbar"
 import { Footer } from "../components/layout/Footer"
 import { Hero } from "../components/hero/Hero"
 import { ServicesCarousel } from "../components/carousel/ServicesCarousel"
-import { TestimonialCard } from "../components/cards/TestimonialCard"
 import { Container } from "../components/ui/Container"
 import { Section } from "../components/ui/Section"
 import { Heading } from "../components/ui/Heading"
 import { Badge } from "../components/ui/badge"
-import { Button } from "../components/ui/button"
 import { testimonials } from "../data/testimonials"
 import { ProcessSteps } from "../components/process/ProcessSteps"
-import { HeroAnimation } from "../components/hero/HeroAnimation"
 import { TestimonialGrid } from "../components/testimonials/TestimonialGrid"
 import { CallToAction } from "../components/cta/CallToAction"
+import { HeroAnimationLazy } from "../components/hero/HeroAnimationLazy"
 
 const processSteps = [
   {
@@ -41,7 +39,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <HeroAnimation />
+      <HeroAnimationLazy />
       <main className="relative z-50">
         <Hero />
 

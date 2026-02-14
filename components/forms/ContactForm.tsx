@@ -36,20 +36,11 @@ export function ContactForm({ onFormActiveChange }: ContactFormProps) {
     setIsSubmitting(true)
     setError("")
 
-    const formData = new FormData(e.currentTarget)
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      company: formData.get("company"),
-      message: formData.get("message"),
-    }
-
     try {
       // TODO: Implementar endpoint real en /api/contact/route.ts
       // Por ahora simulamos el envío
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
-      console.log("[v0] Form data:", data)
       setIsSuccess(true)
 
       // Reset form

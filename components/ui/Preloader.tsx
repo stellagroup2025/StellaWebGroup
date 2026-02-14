@@ -44,7 +44,10 @@ export function Preloader() {
     const backgroundColor = `rgb(${grayValue}, ${grayValue}, ${grayValue})`
 
     return (
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" onExitComplete={() => {
+            document.body.dataset.preloaderDone = "true"
+            window.dispatchEvent(new Event("preloader-complete"))
+        }}>
             {isLoading && (
                 <motion.div
                     className="fixed inset-0 z-[10000] flex items-center justify-center overflow-hidden"

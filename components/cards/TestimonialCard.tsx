@@ -14,9 +14,7 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ quote, author, role, company }: TestimonialCardProps) {
   const divRef = React.useRef<HTMLDivElement>(null)
-  const [isFocused, setIsFocused] = React.useState(false)
   const [position, setPosition] = React.useState({ x: 0, y: 0 })
-  const [opacity, setOpacity] = React.useState(0)
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current) return
@@ -27,15 +25,9 @@ export function TestimonialCard({ quote, author, role, company }: TestimonialCar
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top })
   }
 
-  const handleFocus = () => {
-    setIsFocused(true)
-    setOpacity(1)
-  }
+  const handleFocus = () => {}
 
-  const handleBlur = () => {
-    setIsFocused(false)
-    setOpacity(0)
-  }
+  const handleBlur = () => {}
 
   return (
     <div

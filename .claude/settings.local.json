@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(del \"c:\\\\Users\\\\reyes\\\\OneDrive\\\\Documentos\\\\StellaWebGroup\\\\.eslintrc.json\")",
+      "Bash(npm install:*)",
+      "Bash(npm run lint)",
+      "Bash(npm audit:*)",
+      "Bash(npm view:*)",
+      "Bash(npm ls:*)",
+      "Bash(dir:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(cmd.exe /c \"rmdir /s /q .next\")",
+      "Bash(cmd.exe /c \"rmdir /s /q .next 2>nul\")",
+      "Bash(npx next build:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(cmd.exe /c \"tasklist | findstr node\")",
+      "Bash(cmd.exe /c \"rmdir /s /q c:\\\\Users\\\\reyes\\\\OneDrive\\\\Documentos\\\\StellaWebGroup\\\\.next\")",
+      "Bash(cmd.exe /c \"dir c:\\\\Users\\\\reyes\\\\OneDrive\\\\Documentos\\\\StellaWebGroup\\\\.next\")",
+      "Bash(cmd.exe /c \"rmdir /s /q C:\\\\Users\\\\reyes\\\\.next-stella 2>nul\")"
+    ]
+  }
+}

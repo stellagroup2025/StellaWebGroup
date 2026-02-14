@@ -9,6 +9,7 @@ import { ServiceImageCard } from "../../components/cards/ServiceImageCard"
 import { Button } from "../../components/ui/button"
 import { services } from "../../data/services"
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Servicios",
@@ -35,10 +36,10 @@ export default function ServiciosPage() {
                     transformar tus ideas en resultados medibles.
                   </p>
                   <Button size="lg" asChild>
-                    <a href="/contacto">
+                    <Link href="/contacto">
                       Hablar con nosotros
                       <ArrowRight className="ml-2 h-4 w-4" />
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               </div>

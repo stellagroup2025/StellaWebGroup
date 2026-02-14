@@ -15,7 +15,6 @@ export default function ContactoPage() {
   const [isFormActive, setIsFormActive] = useState(false)
 
   const handleFormActiveChange = (active: boolean) => {
-    console.log("[v0] Form active state changed:", active)
     setIsFormActive(active)
   }
 

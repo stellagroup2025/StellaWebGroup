@@ -17,7 +17,6 @@ export function Hero() {
 
   // Refs for elements to animate
   const badgeRef = useRef<HTMLDivElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
   const textRef = useRef<HTMLParagraphElement>(null)
   const buttonsRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
@@ -107,13 +106,13 @@ export function Hero() {
           >
 
             {/* 1. Base Text - Sci-Fi Swarm Assembly */}
-            <TextAssemble text="Construimos software que" delay={2.5} />{" "}
+            <TextAssemble text="Construimos software que" />{" "}
 
             {/* 2. Gradient Text */}
             <TextAssemble
               text="impulsa tu negocio"
               gradient={true}
-              delay={2.7}
+              stagger={0.2}
             />
           </h1>
 
