@@ -53,29 +53,6 @@ export function Hero() {
       //   },
       // })
 
-      // Text moves a bit slower than title
-      gsap.to(textRef.current, {
-        y: -150, // Increased from -50
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      })
-
-      // Buttons stay more grounded or move oppositely slightly for contrast
-      gsap.to(buttonsRef.current, {
-        y: -20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      })
 
     },
     { scope: containerRef }
@@ -83,12 +60,8 @@ export function Hero() {
 
   return (
     <section ref={containerRef} className="relative min-h-screen flex items-center pt-24">
-      {/* Background gradients (kept from original) */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-background/50 via-background/40 to-background/30" />
-      </div>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand/10 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent" />
+      {/* Background overlay - single layer to avoid scroll artifacts */}
+      <div className="absolute inset-0 bg-background/30 will-change-transform" />
 
       <Container className="relative z-10">
         <div className="max-w-4xl mx-auto text-center">
@@ -132,9 +105,10 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-12 justify-center invisible opacity-0 translate-y-4"
           >
             <Magnetic>
-              <Button size="lg" asChild className="relative rounded-full h-12 px-8 bg-foreground text-background hover:bg-foreground/90 overflow-hidden shadow-[0_2px_16px_rgba(0,0,0,0.1)]">
+              <Button size="lg" asChild className="relative rounded-full h-12 px-8 bg-black/70 dark:bg-white/15 backdrop-blur-xl text-white border border-white/15 dark:border-white/20 hover:bg-black/80 dark:hover:bg-white/20 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.15)]">
                 <a href="/contacto" className="flex items-center gap-2">
                   <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none translate-x-[-20%]" />
                   <span className="relative">Hablar con nosotros</span>
                   <ArrowRight className="relative ml-1 h-4 w-4" />
                 </a>

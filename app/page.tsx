@@ -48,10 +48,14 @@ export default function HomePage() {
           <Hero />
 
           {/* Services */}
-          <Section id="servicios" className="">
+          <Section id="servicios" className="py-4 md:py-8">
             <div className="w-full">
-              <div className="text-center mb-12 px-4">
-                <Badge className="mb-4">Nuestros Servicios</Badge>
+              <div className="text-center mb-6 px-4">
+                <div className="flex items-center gap-4 justify-center mb-4">
+                  <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
+                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Nuestros Servicios</Badge>
+                  <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
+                </div>
                 <Heading level={2} className="mb-4">
                   Soluciones que impulsan tu crecimiento
                 </Heading>
@@ -65,10 +69,14 @@ export default function HomePage() {
           </Section>
 
           {/* Process */}
-          <Section id="proceso" className="">
+          <Section id="proceso" className="py-4 md:py-8">
             <Container>
-              <div className="text-center mb-12">
-                <Badge className="mb-4">Nuestro Proceso</Badge>
+              <div className="text-center mb-6">
+                <div className="flex items-center gap-4 justify-center mb-4">
+                  <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
+                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Nuestro Proceso</Badge>
+                  <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
+                </div>
                 <Heading level={2} className="mb-4">
                   De la idea a la realidad en 4 pasos
                 </Heading>
@@ -79,10 +87,14 @@ export default function HomePage() {
           </Section>
 
           {/* Testimonials */}
-          <Section className="">
+          <Section className="py-4 md:py-8">
             <Container>
-              <div className="text-center mb-12">
-                <Badge className="mb-4">Testimonios</Badge>
+              <div className="text-center mb-6">
+                <div className="flex items-center gap-4 justify-center mb-4">
+                  <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
+                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Testimonios</Badge>
+                  <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
+                </div>
                 <Heading level={2} className="mb-4">
                   Lo que dicen nuestros clientes
                 </Heading>

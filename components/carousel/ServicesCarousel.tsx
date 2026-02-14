@@ -82,7 +82,7 @@ export function ServicesCarousel() {
   return (
     <div className="relative z-10 w-full">
       {/* Carousel Container */}
-      <div className="relative z-10 h-[560px] md:h-[540px] flex items-center justify-center overflow-hidden">
+      <div className="relative z-10 h-[420px] md:h-[400px] flex items-center justify-center overflow-hidden">
         <div className="relative z-10 w-full max-w-7xl mx-auto px-2">
           <div className="flex items-center justify-center gap-12">
             {services.map((service, index) => {
@@ -127,38 +127,45 @@ export function ServicesCarousel() {
       </div>
 
       {/* Navigation */}
-      <div className="flex items-center justify-center gap-4 mt-8">
+      <div className="flex items-center justify-center gap-3 mt-3">
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
           onClick={prevSlide}
-          className="rounded-full bg-transparent md:hidden"
+          className="relative w-9 h-9 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/15 shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden hover:bg-white/80 dark:hover:bg-white/15 md:hidden"
           aria-label="Anterior servicio"
         >
-          <ChevronLeft className="h-5 w-5" />
+          <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+          <ChevronLeft className="relative h-4 w-4" />
         </Button>
 
-        {/* Dots */}
-        <div className="flex gap-2">
+        {/* Glass pill dots */}
+        <div className="relative inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/15 shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
           {services.map((_, index) => (
             <button
               key={index}
               onClick={() => setActiveIndex(index)}
-              className={`h-2 rounded-full transition-all ${index === activeIndex ? "w-8 bg-brand" : "w-2 bg-border"
-                }`}
+              className={`relative rounded-full transition-all duration-300 overflow-hidden ${index === activeIndex ? "w-7 h-2.5" : "w-2.5 h-2.5"}`}
               aria-label={`Ir al servicio ${index + 1}`}
-            />
+            >
+              {/* Glass base */}
+              <div className={`absolute inset-0 rounded-full ${index === activeIndex ? "bg-brand/80 shadow-[0_0_8px_rgba(59,130,246,0.4)]" : "bg-brand/20 dark:bg-white/20 border border-brand/15 dark:border-white/25"}`} />
+              {/* Top light reflection */}
+              <div className={`absolute inset-0 rounded-full bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-white/20 pointer-events-none ${index === activeIndex ? "from-white/40" : ""}`} />
+            </button>
           ))}
         </div>
 
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
           onClick={nextSlide}
-          className="rounded-full bg-transparent md:hidden"
+          className="relative w-9 h-9 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-xl border border-white/50 dark:border-white/15 shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden hover:bg-white/80 dark:hover:bg-white/15 md:hidden"
           aria-label="Siguiente servicio"
         >
-          <ChevronRight className="h-5 w-5" />
+          <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+          <ChevronRight className="relative h-4 w-4" />
         </Button>
       </div>
     </div>

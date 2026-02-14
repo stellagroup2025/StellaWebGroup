@@ -35,23 +35,18 @@ export function TestimonialCard({ quote, author, role, company }: TestimonialCar
       onMouseMove={handleMouseMove}
       onMouseEnter={handleFocus}
       onMouseLeave={handleBlur}
-      className="relative p-6 rounded-2xl bg-white/5 dark:bg-white/[0.03] backdrop-blur-md border border-white/10 dark:border-white/[0.06] overflow-hidden group hover:border-brand/20 transition-all duration-300"
+      className="relative p-6 rounded-2xl bg-white/70 dark:bg-white/[0.03] backdrop-blur-xl overflow-hidden group transition-all duration-300 shadow-[0_2px_16px_rgba(0,0,0,0.06)]"
     >
-      {/* Spotlight Gradient */}
-      <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(var(--brand-rgb), 0.1), transparent 40%)`, // Assuming usage of brand color variable or similar. Fallback to hardcoded if needed.
-        }}
-      />
+      {/* Glass light reflections */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
 
-      {/* Spotlight Border (Subtle) */}
+      {/* Spotlight glow on hover */}
       <div
-        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
-          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(59, 130, 246, 0.3), transparent 40%)`,
+          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255, 255, 255, 0.15), transparent 40%)`,
         }}
-        aria-hidden="true"
       />
 
       <div className="relative z-10">
