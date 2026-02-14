@@ -62,12 +62,12 @@ export function ProcessSteps({ steps }: ProcessStepsProps) {
           ref={(el) => { if (el) stepsRef.current[index] = el }}
           className="relative"
         >
-          <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center mb-4">
+          <div className="relative z-10 flex flex-col items-center text-center">
+            <div className="relative z-10 w-16 h-16 rounded-full bg-background flex items-center justify-center mb-4 shadow-sm">
               <span className="text-2xl font-bold text-brand">{step.number}</span>
             </div>
-            <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-            <p className="text-muted-foreground">{step.description}</p>
+            <h3 className="relative z-10 text-xl font-semibold mb-2 [text-shadow:_0_0_8px_var(--background),_0_0_16px_var(--background)]">{step.title}</h3>
+            <p className="relative z-10 text-muted-foreground [text-shadow:_0_0_8px_var(--background),_0_0_16px_var(--background)]">{step.description}</p>
           </div>
           {/* Connector line (hidden on mobile, purely decorative) */}
           {index < steps.length - 1 && (
