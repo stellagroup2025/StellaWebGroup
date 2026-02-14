@@ -43,8 +43,8 @@ export default function ServiciosPage() {
                     Ofrecemos servicios especializados que combinan experiencia técnica con visión de negocio para
                     transformar tus ideas en resultados medibles.
                   </p>
-                  <Button size="lg" asChild className="relative rounded-full h-14 px-8 !bg-black/70 dark:!bg-white/10 backdrop-blur-xl !text-white border-0 hover:!bg-black/80 dark:hover:!bg-white/15 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] text-base font-semibold">
-                    <Link href="/contacto" className="flex items-center gap-2">
+                  <Button size="lg" asChild className="relative rounded-full h-14 px-8 w-full sm:w-auto !bg-black/70 dark:!bg-white/10 backdrop-blur-xl !text-white border-0 hover:!bg-black/80 dark:hover:!bg-white/15 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] text-base font-semibold">
+                    <Link href="/contacto" className="flex items-center justify-center gap-2">
                       <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
                       <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none translate-x-[-20%]" />
                       <span className="relative">Hablar con nosotros</span>
@@ -88,7 +88,7 @@ export default function ServiciosPage() {
               <p className="relative text-lg text-muted-foreground mb-6">
                 Cada proyecto es único. Cuéntanos tu desafío y diseñaremos una solución a medida
               </p>
-              <Button size="lg" asChild className="relative rounded-full h-14 px-8 !bg-black/70 dark:!bg-white/10 backdrop-blur-xl !text-white border-0 hover:!bg-black/80 dark:hover:!bg-white/15 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] text-base font-semibold">
+              <Button size="lg" asChild className="relative rounded-full h-14 px-8 w-full sm:w-auto !bg-black/70 dark:!bg-white/10 backdrop-blur-xl !text-white border-0 hover:!bg-black/80 dark:hover:!bg-white/15 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] text-base font-semibold">
                 <Link href="/contacto" className="flex items-center justify-center gap-2">
                   <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
                   <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none translate-x-[-20%]" />

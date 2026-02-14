@@ -5,9 +5,8 @@ import { Footer } from "../../components/layout/Footer"
 import { Container } from "../../components/ui/Container"
 import { Section } from "../../components/ui/Section"
 import { Heading } from "../../components/ui/Heading"
-import { Badge } from "../../components/ui/badge"
 import { ContactForm } from "../../components/forms/ContactForm"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, Sparkles } from "lucide-react"
 import { siteConfig } from "../../config/site"
 import Image from "next/image"
 
@@ -52,20 +51,28 @@ export default function ContactoPage() {
         <main className="relative z-10">
           <Section className="pt-20 pb-8">
             <Container>
-              <div className="max-w-3xl mx-auto text-center">
-                <Badge className="mb-4">Contacto</Badge>
-                <Heading level={1} className="mb-4">
-                  Hablemos de tu proyecto
+              <div className="max-w-3xl mx-auto text-center mb-8">
+                <div className="flex items-center gap-4 justify-center mb-5">
+                  <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
+                  <div className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
+                    <Sparkles className="relative h-4 w-4" />
+                    <span className="relative text-sm font-medium">Contacto</span>
+                  </div>
+                  <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
+                </div>
+                <Heading level={1} className="mb-3">
+                  Hablemos de tu{" "}
+                  <span className="font-serif italic bg-gradient-to-r from-brand via-blue-300 to-brand bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
+                    proyecto
+                  </span>
                 </Heading>
                 <p className="text-lg text-muted-foreground">
                   Cuéntanos tu idea y te responderemos en menos de 24 horas
                 </p>
               </div>
-            </Container>
-          </Section>
 
-          <Section className="py-12">
-            <Container>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
                 {/* Contact Info - fades out and slides left */}
                 <div
@@ -73,14 +80,16 @@ export default function ContactoPage() {
                     isFormActive ? "opacity-0 -translate-x-8 pointer-events-none" : "opacity-100 translate-x-0"
                   }`}
                 >
-                  <Heading level={3} className="mb-6">
+                  <Heading level={3} className="mb-5">
                     Información de contacto
                   </Heading>
 
                   <div className="space-y-4">
                     <div className="flex gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-brand/10 flex items-center justify-center flex-shrink-0">
-                        <Mail className="h-6 w-6 text-brand" />
+                      <div className="relative w-12 h-12 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl flex items-center justify-center flex-shrink-0 shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden">
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
+                        <Mail className="relative h-5 w-5 text-brand" />
                       </div>
                       <div>
                         <p className="font-semibold mb-1">Email</p>
@@ -94,8 +103,10 @@ export default function ContactoPage() {
                     </div>
 
                     <div className="flex gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-brand/10 flex items-center justify-center flex-shrink-0">
-                        <Phone className="h-6 w-6 text-brand" />
+                      <div className="relative w-12 h-12 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl flex items-center justify-center flex-shrink-0 shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden">
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
+                        <Phone className="relative h-5 w-5 text-brand" />
                       </div>
                       <div>
                         <p className="font-semibold mb-1">Teléfono</p>
@@ -109,8 +120,10 @@ export default function ContactoPage() {
                     </div>
 
                     <div className="flex gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-brand/10 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="h-6 w-6 text-brand" />
+                      <div className="relative w-12 h-12 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl flex items-center justify-center flex-shrink-0 shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden">
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
+                        <MapPin className="relative h-5 w-5 text-brand" />
                       </div>
                       <div>
                         <p className="font-semibold mb-1">Ubicación</p>
@@ -119,8 +132,10 @@ export default function ContactoPage() {
                     </div>
                   </div>
 
-                  <div className="mt-6 p-4 rounded-xl bg-muted/50 backdrop-blur-sm">
-                    <p className="text-sm text-muted-foreground">
+                  <div className="relative mt-6 p-4 rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-hidden">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
+                    <p className="relative text-sm text-muted-foreground">
                       <strong>Horario de atención:</strong>
                       <br />
                       Lunes a Viernes: 9:00 - 18:00
