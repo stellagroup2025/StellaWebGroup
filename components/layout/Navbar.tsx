@@ -34,10 +34,10 @@ export function Navbar() {
   return (
     <header className="fixed top-0 z-[100] w-full">
       <div
-        className={`relative z-10 transition-all duration-300 md:mx-auto md:mt-2.5 md:max-w-5xl md:rounded-full ${
+        className={`relative z-10 transition-all duration-300 md:mx-auto md:mt-2.5 md:max-w-5xl md:rounded-full overflow-hidden ${
           isScrolled
-            ? "bg-background/80 backdrop-blur-lg border border-border shadow-lg md:shadow-xl"
-            : "bg-background/60 backdrop-blur-md border border-border/50 md:border-border"
+            ? "bg-white/70 dark:bg-black/60 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
+            : "bg-white/50 dark:bg-black/40 backdrop-blur-lg shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
         }`}
       >
         <Container className="md:px-6">
@@ -56,27 +56,37 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 overflow-hidden ${
                     pathname === item.href
-                      ? "text-brand bg-brand/10 scale-110"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted hover:scale-110"
+                      ? "text-brand bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                      : "text-muted-foreground hover:text-foreground hover:bg-white/50 dark:hover:bg-white/[0.06]"
                   }`}
                 >
-                  {item.label}
+                  {pathname === item.href && (
+                    <>
+                      <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+                      <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
+                    </>
+                  )}
+                  <span className="relative">{item.label}</span>
                 </Link>
               ))}
             </div>
 
             {/* Right side actions */}
             <div className="flex items-center gap-2">
-              <Button size="sm" className="hidden md:inline-flex rounded-full" asChild>
-                <Link href="/contacto">Contactar</Link>
+              <Button size="sm" className="relative hidden md:inline-flex rounded-full !bg-black/70 dark:!bg-white/10 backdrop-blur-xl !text-white border-0 hover:!bg-black/80 dark:hover:!bg-white/15 overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.15)] font-semibold" asChild>
+                <Link href="/contacto">
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none translate-x-[-20%]" />
+                  <span className="relative">Contactar</span>
+                </Link>
               </Button>
 
               {/* Mobile menu button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 rounded-md hover:bg-muted"
+                className="md:hidden p-2 rounded-full hover:bg-white/50 dark:hover:bg-white/[0.06] transition-colors"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
