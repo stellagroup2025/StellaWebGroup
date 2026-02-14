@@ -4,7 +4,6 @@ import { Footer } from '../../components/layout/Footer'
 import { Container } from '../../components/ui/Container'
 import { Section } from '../../components/ui/Section'
 import { Heading } from '../../components/ui/Heading'
-import { Badge } from '../../components/ui/badge'
 import {
   Target,
   Users,
@@ -87,12 +86,24 @@ export default function NosotrosPage() {
       <Navbar />
       <main>
         {/* Hero Section */}
-        <Section className='pt-24 pb-12 bg-gradient-to-br from-background via-background to-muted/30'>
+        <Section className='pt-24 pb-8'>
           <Container>
             <div className='max-w-3xl mx-auto text-center'>
-              <Badge className='mb-4'>Nosotros</Badge>
-              <Heading level={1} className='mb-6'>
-                Experiencia y Visión para Transformar Ideas en Realidad
+              <div className='flex items-center gap-4 justify-center mb-6'>
+                <div className='h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border' />
+                <div className='relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden'>
+                  <div className='absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                  <div className='absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
+                  <Sparkles className='relative h-4 w-4' />
+                  <span className='relative text-sm font-medium'>Nosotros</span>
+                </div>
+                <div className='h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border' />
+              </div>
+              <Heading level={1} className='mb-4'>
+                Experiencia y Visión para Transformar Ideas en{' '}
+                <span className='font-serif italic bg-gradient-to-r from-brand via-blue-300 to-brand bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent'>
+                  Realidad
+                </span>
               </Heading>
               <p className='text-lg text-muted-foreground leading-relaxed'>
                 Combinamos un profundo entendimiento de los mercados tecnológico
@@ -104,11 +115,14 @@ export default function NosotrosPage() {
         </Section>
 
         {/* Company Values */}
-        <Section className='bg-muted/30'>
+        <Section className='py-8 md:py-10'>
           <Container>
-            <div className='text-center mb-12'>
-              <Heading level={2} className='mb-4'>
-                Nuestros Valores Empresariales
+            <div className='text-center mb-8'>
+              <Heading level={2} className='mb-3'>
+                Nuestros Valores{' '}
+                <span className='font-serif italic bg-gradient-to-r from-brand via-blue-300 to-brand bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent'>
+                  Empresariales
+                </span>
               </Heading>
               <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
                 Principios que definen nuestra forma de trabajar y entregar
@@ -116,14 +130,16 @@ export default function NosotrosPage() {
               </p>
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
               {values.map((value, index) => (
                 <div key={index} className='text-center group'>
-                  <div className='w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center mx-auto mb-4 transition-all group-hover:bg-brand/20 group-hover:scale-110'>
-                    <value.icon className='h-8 w-8 text-brand' />
+                  <div className='relative w-14 h-14 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl flex items-center justify-center mx-auto mb-3 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden transition-shadow group-hover:shadow-[0_4px_24px_rgba(0,0,0,0.1)]'>
+                    <div className='absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                    <div className='absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
+                    <value.icon className='relative h-7 w-7 text-brand' />
                   </div>
-                  <h3 className='text-xl font-semibold mb-2'>{value.title}</h3>
-                  <p className='text-muted-foreground leading-relaxed'>
+                  <h3 className='text-lg font-semibold mb-1.5'>{value.title}</h3>
+                  <p className='text-sm text-muted-foreground leading-relaxed'>
                     {value.description}
                   </p>
                 </div>
@@ -133,11 +149,14 @@ export default function NosotrosPage() {
         </Section>
 
         {/* Founders Section */}
-        <Section>
+        <Section className='py-8 md:py-10'>
           <Container>
-            <div className='text-center mb-16'>
-              <Heading level={2} className='mb-4'>
-                Nuestros Fundadores
+            <div className='text-center mb-8'>
+              <Heading level={2} className='mb-3'>
+                Nuestros{' '}
+                <span className='font-serif italic bg-gradient-to-r from-brand via-blue-300 to-brand bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent'>
+                  Fundadores
+                </span>
               </Heading>
               <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
                 Talentos complementarios que se unen para desarrollar los
@@ -145,10 +164,12 @@ export default function NosotrosPage() {
               </p>
             </div>
 
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto'>
               {founders.map((founder, index) => (
                 <div key={index} className='group'>
-                  <div className='relative h-80 rounded-2xl overflow-hidden mb-6 bg-muted'>
+                  <div className='relative h-72 rounded-2xl overflow-hidden mb-4 bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)]'>
+                    <div className='absolute inset-0 z-10 rounded-2xl bg-gradient-to-b from-white/20 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                    <div className='absolute inset-0 z-10 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
                     <Image
                       src={founder.image || '/placeholder.svg'}
                       alt={founder.name}
@@ -156,28 +177,28 @@ export default function NosotrosPage() {
                       priority
                       className='object-cover transition-transform duration-500 group-hover:scale-105'
                     />
-                    <div className='absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent' />
-                    <div className='absolute bottom-6 left-6 right-6'>
-                      <h3 className='text-2xl font-bold text-foreground mb-1'>
+                    <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent' />
+                    <div className='absolute bottom-5 left-5 right-5 z-10'>
+                      <h3 className='text-2xl font-bold text-white mb-1'>
                         {founder.name}
                       </h3>
                       <p className='text-brand font-medium'>{founder.role}</p>
                     </div>
                   </div>
 
-                  <p className='text-muted-foreground leading-relaxed mb-6'>
+                  <p className='text-sm text-muted-foreground leading-relaxed mb-4'>
                     {founder.description}
                   </p>
 
                   <div className='flex flex-wrap gap-2'>
                     {founder.expertise.map((skill, skillIndex) => (
-                      <Badge
+                      <div
                         key={skillIndex}
-                        variant='secondary'
-                        className='text-sm'
+                        className='relative px-3 py-1.5 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl text-sm font-medium shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden'
                       >
-                        {skill}
-                      </Badge>
+                        <span className='absolute inset-0 rounded-full bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                        <span className='relative'>{skill}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -187,50 +208,57 @@ export default function NosotrosPage() {
         </Section>
 
         {/* Combined Strengths */}
-        <Section className='bg-gradient-to-br from-brand/5 via-background to-accent/5'>
+        <Section className='py-8 md:py-10'>
           <Container>
             <div className='max-w-4xl mx-auto'>
-              <div className='text-center mb-12'>
-                <div className='inline-flex items-center gap-2 mb-4'>
-                  <TrendingUp className='h-8 w-8 text-brand' />
-                  <Heading level={2}>Talentos en Conjunto</Heading>
+              <div className='text-center mb-8'>
+                <div className='relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl text-brand mb-4 shadow-[0_2px_16px_rgba(0,0,0,0.06)] overflow-hidden'>
+                  <div className='absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                  <div className='absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
+                  <TrendingUp className='relative h-4 w-4' />
+                  <span className='relative text-sm font-medium'>Talentos en Conjunto</span>
                 </div>
-                <p className='text-lg text-muted-foreground leading-relaxed'>
+                <p className='text-muted-foreground leading-relaxed'>
                   La combinación de experiencia en gestión de proyectos, dominio
                   técnico avanzado, arquitectura de software y diseño nos
-                  permite ofrecer soluciones integrales que abarcan desde la
-                  conceptualización hasta la implementación final.
+                  permite ofrecer soluciones integrales.
                 </p>
               </div>
 
-              <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-                <div className='text-center p-6 rounded-xl bg-background/50 backdrop-blur-sm border border-border/50'>
-                  <Brain className='h-12 w-12 text-brand mx-auto mb-4' />
-                  <h3 className='font-semibold text-lg mb-2'>
+              <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+                <div className='relative text-center p-5 rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-hidden'>
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
+                  <Brain className='relative h-10 w-10 text-brand mx-auto mb-3' />
+                  <h3 className='relative font-semibold text-lg mb-1.5'>
                     Visión Estratégica
                   </h3>
-                  <p className='text-sm text-muted-foreground'>
+                  <p className='relative text-sm text-muted-foreground'>
                     Entendimiento profundo de mercados y necesidades
                     empresariales
                   </p>
                 </div>
 
-                <div className='text-center p-6 rounded-xl bg-background/50 backdrop-blur-sm border border-border/50'>
-                  <Code2 className='h-12 w-12 text-brand mx-auto mb-4' />
-                  <h3 className='font-semibold text-lg mb-2'>
+                <div className='relative text-center p-5 rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-hidden'>
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
+                  <Code2 className='relative h-10 w-10 text-brand mx-auto mb-3' />
+                  <h3 className='relative font-semibold text-lg mb-1.5'>
                     Excelencia Técnica
                   </h3>
-                  <p className='text-sm text-muted-foreground'>
+                  <p className='relative text-sm text-muted-foreground'>
                     Arquitectura sólida y código de la más alta calidad
                   </p>
                 </div>
 
-                <div className='text-center p-6 rounded-xl bg-background/50 backdrop-blur-sm border border-border/50'>
-                  <Lightbulb className='h-12 w-12 text-brand mx-auto mb-4' />
-                  <h3 className='font-semibold text-lg mb-2'>
+                <div className='relative text-center p-5 rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-hidden'>
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
+                  <Lightbulb className='relative h-10 w-10 text-brand mx-auto mb-3' />
+                  <h3 className='relative font-semibold text-lg mb-1.5'>
                     Innovación Constante
                   </h3>
-                  <p className='text-sm text-muted-foreground'>
+                  <p className='relative text-sm text-muted-foreground'>
                     Dominio de IA y tecnologías emergentes aplicadas
                   </p>
                 </div>
@@ -240,73 +268,73 @@ export default function NosotrosPage() {
         </Section>
 
         {/* Constant Evolution Section */}
-        <Section>
+        <Section className='py-8 md:py-10'>
           <Container>
             <div className='max-w-4xl mx-auto'>
-              <div className='text-center mb-12'>
-                <div className='inline-flex items-center gap-2 mb-4'>
+              <div className='text-center mb-8'>
+                <div className='inline-flex items-center gap-2 mb-3'>
                   <div className='animate-spin-slow'>
-                    <Search className='h-8 w-8 text-brand' />
+                    <Search className='h-7 w-7 text-brand' />
                   </div>
                   <div className='animate-pulse'>
-                    <Sparkles className='h-6 w-6 text-accent' />
+                    <Sparkles className='h-5 w-5 text-brand' />
                   </div>
                 </div>
                 <RotatingText />
-                <p className='text-lg text-muted-foreground leading-relaxed mb-8'>
-                  Nuestra búsqueda nunca se detiene. Estamos en constante
-                  exploración de nuevas tecnologías que nos permitan ofrecer
-                  soluciones más innovadoras y eficientes. Al mismo tiempo,
+                <p className='text-muted-foreground leading-relaxed'>
+                  Estamos en constante exploración de nuevas tecnologías y
                   buscamos activamente nuevos talentos que compartan nuestra
-                  visión y nos impulsen hacia nuevas metas.
+                  visión.
                 </p>
               </div>
 
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-                <div className='p-8 rounded-2xl bg-gradient-to-br from-brand/10 to-brand/5 border border-brand/20 relative overflow-hidden group hover:scale-105 transition-transform duration-300'>
-                  <div className='absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div className='relative p-6 rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-hidden group hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)] transition-shadow'>
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
 
-                  <div className='w-14 h-14 rounded-full bg-brand/20 flex items-center justify-center mb-6 relative z-10 group-hover:rotate-12 transition-transform duration-300'>
-                    <Rocket className='h-7 w-7 text-brand animate-pulse' />
+                  <div className='relative w-12 h-12 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl flex items-center justify-center mb-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden'>
+                    <div className='absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                    <Rocket className='relative h-6 w-6 text-brand' />
                   </div>
-                  <h3 className='text-xl font-semibold mb-3 relative z-10'>
+                  <h3 className='relative text-lg font-semibold mb-2'>
                     Nuevas Tecnologías
                   </h3>
-                  <p className='text-muted-foreground leading-relaxed relative z-10'>
+                  <p className='relative text-sm text-muted-foreground leading-relaxed'>
                     Investigamos y adoptamos las últimas innovaciones
-                    tecnológicas, desde frameworks emergentes hasta avances en
-                    inteligencia artificial, para mantener a nuestros clientes a
+                    tecnológicas para mantener a nuestros clientes a
                     la vanguardia del mercado.
                   </p>
                 </div>
 
-                <div className='p-8 rounded-2xl bg-gradient-to-br from-accent/10 to-accent/5 border-2 border-foreground/20 relative overflow-hidden group hover:scale-105 transition-transform duration-300'>
-                  <div className='absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500' />
+                <div className='relative p-6 rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] overflow-hidden group hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)] transition-shadow'>
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                  <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
 
-                  <div className='w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center mb-6 relative z-10 group-hover:-rotate-12 transition-transform duration-300'>
-                    <Users className='h-7 w-7 text-accent animate-pulse' />
+                  <div className='relative w-12 h-12 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-xl flex items-center justify-center mb-4 shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden'>
+                    <div className='absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                    <Users className='relative h-6 w-6 text-brand' />
                   </div>
-                  <h3 className='text-xl font-semibold mb-3 relative z-10'>
+                  <h3 className='relative text-lg font-semibold mb-2'>
                     Nuevos Talentos
                   </h3>
-                  <p className='text-muted-foreground leading-relaxed relative z-10'>
+                  <p className='relative text-sm text-muted-foreground leading-relaxed'>
                     Buscamos profesionales apasionados que aporten perspectivas
-                    frescas y habilidades complementarias, expandiendo nuestras
-                    capacidades y permitiéndonos alcanzar objetivos cada vez más
-                    ambiciosos.
+                    frescas y habilidades complementarias para alcanzar
+                    objetivos cada vez más ambiciosos.
                   </p>
                 </div>
               </div>
 
-              <div className='mt-12 p-8 rounded-2xl bg-muted/50 border border-border text-center relative overflow-hidden'>
-                <p className='text-lg font-medium text-foreground mb-2 relative z-10'>
+              <div className='relative mt-6 p-6 rounded-2xl bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_rgba(0,0,0,0.08)] text-center overflow-hidden'>
+                <div className='absolute inset-0 rounded-2xl bg-gradient-to-b from-white/60 via-transparent to-transparent dark:from-white/10 pointer-events-none' />
+                <div className='absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]' />
+                <p className='relative text-lg font-medium text-foreground mb-1'>
                   Esta mentalidad de crecimiento continuo nos permite
                 </p>
-                <p className='text-muted-foreground leading-relaxed relative z-10'>
-                  Adaptarnos rápidamente a los cambios del mercado, anticipar
-                  las necesidades futuras de nuestros clientes y entregar
-                  soluciones que no solo resuelven problemas actuales, sino que
-                  preparan el camino para el éxito a largo plazo.
+                <p className='relative text-sm text-muted-foreground leading-relaxed'>
+                  Adaptarnos rápidamente a los cambios del mercado y entregar
+                  soluciones que preparan el camino para el éxito a largo plazo.
                 </p>
               </div>
             </div>
