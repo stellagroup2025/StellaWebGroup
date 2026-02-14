@@ -34,7 +34,7 @@ export function Navbar() {
   return (
     <header className="fixed top-0 z-[100] w-full">
       <div
-        className={`transition-all duration-300 md:mx-auto md:mt-2.5 md:max-w-5xl md:rounded-full ${
+        className={`relative z-10 transition-all duration-300 md:mx-auto md:mt-2.5 md:max-w-5xl md:rounded-full ${
           isScrolled
             ? "bg-background/80 backdrop-blur-lg border border-border shadow-lg md:shadow-xl"
             : "bg-background/60 backdrop-blur-md border border-border/50 md:border-border"
@@ -86,36 +86,58 @@ export function Navbar() {
         </Container>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Fullscreen glass overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-border bg-background/95 backdrop-blur-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden fixed inset-0 bg-white/80 dark:bg-black/80 backdrop-blur-2xl"
           >
-            <Container>
-              <div className="py-4 space-y-2">
-                {navItems.map((item) => (
+            {/* Glass reflections */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-transparent dark:from-white/5 pointer-events-none" />
+
+            <div className="relative flex flex-col items-center justify-center h-full gap-1 pb-20">
+              {navItems.map((item, i) => (
+                <motion.div
+                  key={item.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ delay: i * 0.05, duration: 0.3 }}
+                >
                   <Link
-                    key={item.href}
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                    className={`block px-8 py-3.5 rounded-full text-xl font-medium transition-all ${
                       pathname === item.href
-                        ? "text-brand bg-brand/10 scale-110"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted hover:scale-110"
+                        ? "text-brand bg-white/70 dark:bg-white/10 backdrop-blur-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)]"
+                        : "text-muted-foreground active:text-foreground"
                     }`}
                   >
                     {item.label}
                   </Link>
-                ))}
-                <Button className="w-full mt-4" asChild>
-                  <Link href="/contacto">Contactar</Link>
+                </motion.div>
+              ))}
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ delay: navItems.length * 0.05, duration: 0.3 }}
+                className="mt-6 w-full px-12"
+              >
+                <Button size="lg" asChild className="relative w-full rounded-full h-14 px-8 !bg-black/70 dark:!bg-white/10 backdrop-blur-xl !text-white border-0 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] text-base font-semibold">
+                  <Link href="/contacto" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center justify-center gap-2">
+                    <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
+                    <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none translate-x-[-20%]" />
+                    <span className="relative">Contactar</span>
+                  </Link>
                 </Button>
-              </div>
-            </Container>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
