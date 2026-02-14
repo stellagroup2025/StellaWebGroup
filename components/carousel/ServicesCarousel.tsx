@@ -80,10 +80,10 @@ export function ServicesCarousel() {
   }
 
   return (
-    <div className="relative w-full">
+    <div className="relative z-10 w-full">
       {/* Carousel Container */}
-      <div className="relative h-[560px] md:h-[540px] flex items-center justify-center overflow-hidden">
-        <div className="relative w-full max-w-7xl mx-auto px-2">
+      <div className="relative z-10 h-[560px] md:h-[540px] flex items-center justify-center overflow-hidden">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-2">
           <div className="flex items-center justify-center gap-12">
             {services.map((service, index) => {
               const offset = index - activeIndex
@@ -94,10 +94,14 @@ export function ServicesCarousel() {
                 <motion.div
                   key={service.title}
                   animate={{
-                    opacity: Math.abs(offset) >= 2 ? 0 : isActive ? 1 : 0.5,
+                    opacity: Math.abs(offset) >= 2 ? 0 : 1,
                     scale: isActive ? 1 : 0.85,
                     x: offset * 450,
-                    filter: isActive ? "blur(0px)" : Math.abs(offset) >= 2 ? "blur(5px)" : "blur(2px)",
+                    filter: isActive
+                      ? "blur(0px) brightness(1)"
+                      : Math.abs(offset) >= 2
+                        ? "blur(5px) brightness(0.5)"
+                        : "blur(2px) brightness(0.6)",
                     zIndex,
                   }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}

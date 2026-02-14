@@ -56,7 +56,8 @@ export function Cursor() {
             window.removeEventListener("mouseleave", handleMouseLeave)
             window.removeEventListener("mouseover", checkHover)
         }
-    }, [mouseX, mouseY, isVisible])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <>
