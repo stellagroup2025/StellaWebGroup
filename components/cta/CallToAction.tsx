@@ -243,7 +243,7 @@ export function CallToAction() {
     const y = useTransform(scrollYProgress, [0, 1], [-50, 50])
 
     return (
-        <section className="py-20 px-4 md:px-8">
+        <section className="py-8 px-4 md:px-8">
             <div
                 ref={containerRef}
                 className="relative w-full max-w-7xl mx-auto overflow-hidden rounded-[2.5rem] bg-zinc-950/80 dark:bg-black/80 backdrop-blur-2xl shadow-[0_8px_64px_rgba(0,0,0,0.15)]"
@@ -282,7 +282,7 @@ export function CallToAction() {
                 </div>
 
                 {/* --- Content --- */}
-                <div className="relative z-10 p-12 md:p-24 flex flex-col items-center text-center">
+                <div className="relative z-10 p-10 md:p-16 flex flex-col items-center text-center">
 
                     <motion.div
                         style={{ y }}
@@ -320,7 +320,7 @@ export function CallToAction() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="text-lg md:text-xl text-zinc-400 max-w-2xl mb-12 leading-relaxed"
+                            className="text-lg md:text-xl text-zinc-400 max-w-2xl mb-8 leading-relaxed"
                         >
                             Transformamos ideas complejas en productos digitales que tus usuarios amarán. Hablemos de tu visión.
                         </motion.p>
@@ -335,14 +335,14 @@ export function CallToAction() {
                             <Magnetic>
                                 <Button
                                     size="lg"
-                                    className="relative bg-white/90 backdrop-blur-xl !text-black hover:bg-white/95 h-14 px-8 rounded-full text-base font-semibold overflow-hidden shadow-[0_4px_24px_rgba(255,255,255,0.15)]"
+                                    className="relative !bg-white/80 backdrop-blur-xl !text-zinc-900 hover:!bg-white/90 h-14 px-8 rounded-full text-base font-semibold overflow-hidden shadow-[0_4px_24px_rgba(255,255,255,0.2)]"
                                     asChild
                                 >
                                     <a href="/contacto" className="flex items-center gap-2">
-                                        <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent pointer-events-none" />
-                                        <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/60 to-transparent pointer-events-none translate-x-[-20%]" />
-                                        <MessageSquare className="relative w-5 h-5 text-black" />
-                                        <span className="relative text-black">Empezar ahora</span>
+                                        <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/90 via-transparent to-transparent pointer-events-none" />
+                                        <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none translate-x-[-20%]" />
+                                        <MessageSquare className="relative w-5 h-5 text-zinc-900" />
+                                        <span className="relative text-zinc-900">Empezar ahora</span>
                                     </a>
                                 </Button>
                             </Magnetic>

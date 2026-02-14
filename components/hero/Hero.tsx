@@ -105,7 +105,7 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-12 justify-center invisible opacity-0 translate-y-4"
           >
             <Magnetic>
-              <Button size="lg" asChild className="relative rounded-full h-12 px-8 bg-black/70 dark:bg-white/15 backdrop-blur-xl text-white border border-white/15 dark:border-white/20 hover:bg-black/80 dark:hover:bg-white/20 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.15)]">
+              <Button size="lg" asChild className="relative rounded-full h-14 px-8 !bg-black/70 dark:!bg-white/10 backdrop-blur-xl !text-white border-0 hover:!bg-black/80 dark:hover:!bg-white/15 overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] text-base font-semibold">
                 <a href="/contacto" className="flex items-center gap-2">
                   <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/15 via-transparent to-transparent pointer-events-none" />
                   <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none translate-x-[-20%]" />
@@ -116,9 +116,10 @@ export function Hero() {
             </Magnetic>
 
             <Magnetic>
-              <Button size="lg" variant="outline" asChild className="relative rounded-full h-12 px-8 bg-white/70 dark:bg-white/10 backdrop-blur-xl border border-white/60 dark:border-white/15 hover:bg-white/90 dark:hover:bg-white/15 overflow-hidden shadow-[0_2px_16px_rgba(0,0,0,0.06)]">
+              <Button size="lg" variant="outline" asChild className="relative rounded-full h-14 px-8 !bg-white/90 dark:!bg-white/10 backdrop-blur-xl border-0 !text-zinc-900 dark:!text-white hover:!bg-white/95 dark:hover:!bg-white/15 overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08),0_8px_32px_rgba(0,0,0,0.06)] text-base font-semibold">
                 <a href="/proyectos" className="flex items-center gap-2">
-                  <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/80 via-transparent to-transparent dark:from-white/10 pointer-events-none" />
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/95 via-white/40 to-transparent dark:from-white/10 dark:via-transparent pointer-events-none" />
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/60 to-transparent dark:via-white/5 pointer-events-none translate-x-[-20%]" />
                   <span className="relative">Ver casos de éxito</span>
                 </a>
               </Button>
