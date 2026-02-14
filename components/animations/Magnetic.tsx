@@ -21,12 +21,10 @@ export function Magnetic({ children }: { children: React.ReactNode }) {
             const distanceY = clientY - centerY
 
             const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY)
-            const triggerRange = width // The magnetic field is roughly the width of the button
+            const triggerRange = width * 0.6
 
             if (distance < triggerRange) {
-                // If within range, pull towards mouse
-                // We use a non-linear pull (stronger at center)
-                const pullStrength = 0.35
+                const pullStrength = 0.15
                 setPosition({ x: distanceX * pullStrength, y: distanceY * pullStrength })
             } else {
                 setPosition({ x: 0, y: 0 })
@@ -43,7 +41,7 @@ export function Magnetic({ children }: { children: React.ReactNode }) {
         <motion.div
             ref={ref}
             animate={{ x, y }}
-            transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+            transition={{ type: "spring", stiffness: 120, damping: 20, mass: 0.2 }}
         >
             {children}
         </motion.div>
