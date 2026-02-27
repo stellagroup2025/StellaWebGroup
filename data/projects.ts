@@ -1,71 +1,87 @@
 export const projects = [
   {
     title: "Plataforma de Gestión Logística",
-    sector: "Logística",
+    sector: "Logística y Distribución",
     image: "/logistics-dashboard.png",
+    problem: "Empresa con procesos manuales y errores frecuentes en gestión de rutas y stock",
+    solution:
+      "Plataforma web centralizada con automatización de pedidos, control de inventario en tiempo real e integración con ERP",
+    technologies: ["React", "Node.js", "API REST", "SQL"],
     metrics: [
-      { label: "eficiencia", value: "↑37%" },
-      { label: "costes", value: "↓28%" },
+      { label: "eficiencia operativa", value: "↑37%" },
+      { label: "costes logísticos", value: "↓28%" },
     ],
     slug: "plataforma-logistica",
-    description: "Sistema completo de gestión de flotas y rutas con optimización en tiempo real",
   },
   {
-    title: "E-commerce de Moda Sostenible",
-    sector: "Retail",
+    title: "Qronnect — Fidelización Digital",
+    sector: "Retail / Comercio Físico",
     image: "/fashion-ecommerce.png",
+    problem: "Comercios con baja recurrencia y sin sistema digital de fidelización",
+    solution:
+      "Plataforma QR para captación, recompensas y análisis de comportamiento del cliente",
+    technologies: ["Next.js", "Backend personalizado", "Métricas en tiempo real"],
     metrics: [
-      { label: "conversión", value: "↑45%" },
-      { label: "ventas", value: "↑62%" },
+      { label: "recurrencia", value: "↑58%" },
+      { label: "retención", value: "↑44%" },
     ],
-    slug: "ecommerce-moda",
-    description: "Tienda online con experiencia de usuario optimizada y checkout simplificado",
+    slug: "qronnect-fidelizacion",
+    externalUrl: "https://www.qronnect.es/",
   },
   {
     title: "Portal Educativo Interactivo",
     sector: "Educación",
     image: "/education-platform.png",
+    problem: "Centro educativo con baja interacción digital y contenidos dispersos",
+    solution:
+      "Portal interactivo con seguimiento de progreso, gamificación y panel de administración",
+    technologies: ["React", "Dashboard personalizado", "Integración multimedia"],
     metrics: [
       { label: "engagement", value: "↑52%" },
-      { label: "retención", value: "↑41%" },
+      { label: "retención de alumnos", value: "↑41%" },
     ],
     slug: "portal-educativo",
-    description: "Plataforma de aprendizaje con contenido multimedia y seguimiento personalizado",
   },
   {
     title: "Gestor de Redes Sociales Multi-Cuenta",
-    sector: "Marketing Digital",
+    sector: "SaaS / Herramientas de Productividad",
     image: "/social-media-manager.jpg",
+    problem: "Community managers gestionando múltiples cuentas sin herramienta centralizada",
+    solution:
+      "Plataforma centralizada para gestión multi-cuenta, automatización de respuestas y análisis de métricas en tiempo real",
+    technologies: ["API Integrations", "Sistema de colas", "Base de datos escalable"],
     metrics: [
       { label: "productividad", value: "↑68%" },
-      { label: "engagement", value: "↑54%" },
+      { label: "engagement gestionado", value: "↑54%" },
     ],
     slug: "gestor-redes-sociales",
-    description:
-      "Plataforma completa para community managers que permite gestionar múltiples cuentas, responder mensajes, analizar estadísticas y controlar pagos desde un solo lugar",
   },
   {
     title: "Sistema de Huella Digital para PYMEs",
     sector: "Transformación Digital",
     image: "/digital-footprint.jpg",
+    problem: "PYMEs sin presencia digital estructurada ni estrategia de captación online",
+    solution:
+      "Solución integral para establecer y optimizar la presencia digital en múltiples canales con generación de leads automatizada",
+    technologies: ["Next.js", "SEO técnico", "Analytics avanzado"],
     metrics: [
-      { label: "visibilidad", value: "↑73%" },
-      { label: "leads", value: "↑49%" },
+      { label: "visibilidad online", value: "↑73%" },
+      { label: "leads generados", value: "↑49%" },
     ],
     slug: "huella-digital-pymes",
-    description:
-      "Solución integral que ayuda a pequeñas y medianas empresas a establecer y optimizar su presencia digital en múltiples canales",
   },
   {
     title: "Plataforma de Creación Web Adaptativa",
     sector: "Desarrollo Web",
     image: "/website-builder.jpg",
+    problem: "Empresas dependientes de procesos lentos y costosos para crear y mantener sitios web",
+    solution:
+      "Sistema flexible de creación web que se adapta a grandes empresas y PYMEs, con funcionalidades escalables según necesidades",
+    technologies: ["React", "CMS headless", "Deploy automatizado"],
     metrics: [
       { label: "tiempo desarrollo", value: "↓65%" },
-      { label: "satisfacción", value: "↑91%" },
+      { label: "satisfacción cliente", value: "↑91%" },
     ],
     slug: "creacion-web-adaptativa",
-    description:
-      "Sistema flexible de creación de sitios web que se adapta tanto a grandes empresas como a pequeñas PYMEs, con funcionalidades escalables según necesidades",
   },
 ]

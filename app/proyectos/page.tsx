@@ -40,15 +40,19 @@ export default function ProyectosPage() {
               <p className="text-lg text-muted-foreground">Resultados medibles en diferentes sectores e industrias</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects.map((project, index) => (
                 <CaseStudyCard
                   key={index}
                   title={project.title}
                   sector={project.sector}
                   image={project.image}
+                  problem={project.problem}
+                  solution={project.solution}
+                  technologies={project.technologies}
                   metrics={project.metrics}
                   slug={project.slug}
+                  externalUrl={"externalUrl" in project ? project.externalUrl : undefined}
                 />
               ))}
             </div>

@@ -6,9 +6,7 @@ import { Container } from "../components/ui/Container"
 import { Section } from "../components/ui/Section"
 import { Heading } from "../components/ui/Heading"
 import { Badge } from "../components/ui/badge"
-import { testimonials } from "../data/testimonials"
 import { ProcessSteps } from "../components/process/ProcessSteps"
-import { TestimonialGrid } from "../components/testimonials/TestimonialGrid"
 import { CallToAction } from "../components/cta/CallToAction"
 import { HeroAnimationLazy } from "../components/hero/HeroAnimationLazy"
 
@@ -90,27 +88,6 @@ export default function HomePage() {
               </div>
 
               <ProcessSteps steps={processSteps} />
-            </Container>
-          </Section>
-
-          {/* Testimonials */}
-          <Section className="py-12 md:py-20">
-            <Container>
-              <div className="text-center mb-12">
-                <div className="flex items-center gap-4 justify-center mb-10">
-                  <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-border" />
-                  <Badge className="px-5 py-2 text-sm font-medium rounded-full bg-white/70 dark:bg-white/10 backdrop-blur-xl text-brand shadow-[0_2px_16px_rgba(0,0,0,0.06)]">Testimonios</Badge>
-                  <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-border" />
-                </div>
-                <Heading level={2} className="mb-6">
-                  Lo que dicen nuestros{" "}
-                  <span className="font-serif italic bg-gradient-to-r from-brand via-blue-300 to-brand bg-[length:200%_auto] animate-shimmer bg-clip-text text-transparent">
-                    clientes
-                  </span>
-                </Heading>
-              </div>
-
-              <TestimonialGrid testimonials={testimonials} />
             </Container>
           </Section>
 
