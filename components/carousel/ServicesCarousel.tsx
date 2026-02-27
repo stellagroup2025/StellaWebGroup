@@ -32,7 +32,7 @@ const services: {
       icon: Code2,
       title: "Desarrollo de Software a Medida",
       description:
-        "Aplicaciones web con React y Next.js, plataformas internas para empresas, paneles de administración personalizados y sistemas SaaS",
+        "Diseñamos y desarrollamos soluciones digitales escalables: aplicaciones web, plataformas internas, paneles de gestión y sistemas SaaS adaptados a cada modelo de negocio",
       image: "/services/web-development.jpg",
     },
     {
