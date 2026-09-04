@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stella·Studio — Galería de proyectos</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ["'Instrument Serif'", "serif"],
+            body: ["'Barlow'", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    html, body { background: #f7f7f8; color: #18181b; font-family: 'Barlow', sans-serif; }
+    ::selection { background: #18181b; color: #f7f7f8; }
+    body::after {
+      /* Grano sutil: textura editorial premium */
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* Light card */
+    .glass {
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(0,0,0,0.07);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.05);
+      transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease;
+    }
+    #grid article.glass:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 22px 48px rgba(0,0,0,0.10);
+    }
+
+    /* Background grid + radial glow (light) */
+    .bg-grid {
+      background-image:
+        radial-gradient(ellipse 70% 45% at 18% -10%, rgba(214,178,120,0.10), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 85% 110%, rgba(120,140,255,0.06), transparent 60%),
+        linear-gradient(rgba(0,0,0,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.022) 1px, transparent 1px);
+      background-size: auto, auto, 40px 40px, 40px 40px;
+      background-position: 0 0, 0 0, -1px -1px, -1px -1px;
+    }
+
+    /* Preview placeholder */
+    .preview-fallback {
+      background:
+        radial-gradient(ellipse at 50% 60%, rgba(255,180,80,0.15), transparent 50%),
+        radial-gradient(ellipse at 30% 30%, rgba(120,80,255,0.1), transparent 50%),
+        #e9e9ec;
+    }
+
+    /* Live iframe preview — image visible by default, iframe overlay on card hover */
+    .preview-stage {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #e4e4e7;
+    }
+    /* Fondo ambiental: la propia miniatura difuminada llena la card y crea un
+       halo de color de la misma tonalidad que la imagen. */
+    .preview-stage .preview-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.35);
+      filter: blur(26px) saturate(1.2);
+      opacity: .95;
+      z-index: 0;
+    }
+    /* Marco central flotante (estilo mockup): aquí viven la miniatura y el
+       live preview, con esquinas redondeadas y sombra. */
+    .preview-stage .preview-frame {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      aspect-ratio: 1.4;
+      transform: translate(-50%, -50%);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0,0,0,.28), 0 2px 8px rgba(0,0,0,.16);
+      z-index: 2;
+      transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease;
+    }
+    .group:hover .preview-stage .preview-frame {
+      transform: translate(-50%, -52%) scale(1.03);
+      box-shadow: 0 20px 48px rgba(0,0,0,.36), 0 4px 12px rgba(0,0,0,.2);
+    }
+    .preview-stage .preview-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    /* The iframe sits inside the frame, hidden by default, shown on card hover */
+    .preview-frame iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 1080px;
+      border: 0;
+      pointer-events: none;
+      transform-origin: top left;
+      opacity: 0;
+      transition: opacity .45s ease;
+      z-index: 2;
+    }
+    /* Only show iframe when it's loaded AND the card is hovered */
+    .group:hover .preview-frame iframe.ready {
+      opacity: 1;
+    }
+
+    /* "EN VIVO" pill — only shows when card hovered AND iframe ready */
+    .preview-stage .live-pulse {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 5;
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      opacity: 0;
+      transition: opacity .35s ease;
+    }
+    .group:hover .preview-stage.iframe-ready .live-pulse {
+      opacity: 1;
+    }
+    .preview-stage .live-pulse::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 8px #34d399;
+      animation: livepulse 1.6s ease-in-out infinite;
+    }
+    /* Subtle "hover me to see it live" hint that fades out when iframe is ready */
+    .preview-stage .hover-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      opacity: 0;
+      transition: opacity .3s ease;
+      pointer-events: none;
+    }
+    /* Hint visible when card hovered but iframe NOT ready yet (loading state) */
+    .group:hover .preview-stage:not(.iframe-ready) .hover-hint {
+      opacity: 1;
+    }
+    @keyframes livepulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Button press feedback + micro-interacción de flecha */
+    .btn-press:active { transform: scale(0.97); }
+    .btn-press svg { transition: transform .3s ease; }
+    .btn-press:hover svg { transform: translate(2px, -2px); }
+
+    /* ───── Preloader: rueda de texto giratoria ───── */
+    #loader { transition: opacity .55s ease; }
+    #loader.done { opacity: 0; pointer-events: none; }
+    .loader-wheel { animation: loader-spin 9s linear infinite; transform-origin: 50% 50%; }
+    .loader-wheel-text {
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+    }
+    @keyframes loader-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .loader-wheel { animation: none; } }
+
+    /* El grid define la perspectiva. Las cards arrancan APILADAS EN FILA en el
+       centro de la pantalla, cada una más profunda que la anterior (un tren que
+       se pierde en el punto de fuga), y despegan una a una hacia el frente
+       hasta recolocarse en su hueco del grid. Transforms y stagger van por JS. */
+    #grid { perspective: 1200px; }
+    #grid article { will-change: transform, opacity; }
+
+  </style>
+</head>
+
+<body class="bg-grid min-h-screen">
+
+  <!-- ============== PRELOADER (rueda de texto giratoria) ============== -->
+  <div id="loader" class="fixed inset-0 z-[200] flex items-center justify-center" style="background:#f7f7f8;">
+    <div class="relative" style="width:300px; height:300px;">
+      <!-- Texto circular girando -->
+      <svg class="loader-wheel absolute inset-0 w-full h-full" viewBox="0 0 300 300" aria-hidden="true">
+        <defs>
+          <path id="loader-circle" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0" />
+        </defs>
+        <text class="loader-wheel-text" fill="#18181b">
+          <textPath href="#loader-circle" startOffset="0" textLength="741" lengthAdjust="spacing">STELLA · STUDIO • STELLA · STUDIO • STELLA · STUDIO •</textPath>
+        </text>
+      </svg>
+      <!-- Porcentaje en el centro -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div id="loader-pct" class="font-heading italic text-6xl md:text-7xl tracking-tight text-zinc-900 tabular-nums">0%</div>
+      </div>
+    </div>
+    <!-- valor de progreso (barra oculta, se mantiene por compatibilidad del JS) -->
+    <div id="loader-bar" style="display:none; width:0%;"></div>
+  </div>
+
+  <!-- ============== HERO a pantalla completa (vídeo full-bleed) ============== -->
+  <header class="relative w-full h-[62vh] min-h-[440px] sm:h-screen sm:min-h-[600px] overflow-hidden flex items-end">
+      <!-- Fondo difuminado del propio reel: rellena el hero alrededor del cuadro -->
+      <video
+        src="hero-promo.mp4"
+        autoplay muted loop playsinline aria-hidden="true"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        style="filter: blur(34px) saturate(1.15); transform: scale(1.25);"
+      ></video>
+      <!-- El reel como CUADRO central enmarcado (redondeado + sombra) -->
+      <div class="absolute inset-0 z-[1] flex items-center justify-center p-4 sm:p-8 lg:p-14">
+        <div class="w-full max-w-[1700px] max-h-full overflow-hidden rounded-xl sm:rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,.5)] ring-1 ring-white/10" style="aspect-ratio:16/9;">
+          <video
+            src="hero-promo.mp4"
+            autoplay muted loop playsinline
+            class="w-full h-full object-cover"
+          ></video>
+        </div>
+      </div>
+
+      <!-- Barra superior superpuesta sobre el vídeo -->
+      <nav class="absolute top-0 left-0 right-0 z-30 px-6 md:px-10 lg:px-14 pt-7 flex items-center justify-between">
+        <div class="font-heading italic text-2xl tracking-tight text-white select-none" style="text-shadow:0 1px 12px rgba(0,0,0,.5);">
+          Stella<span class="text-white/60 mx-0.5">·</span>Studio
+        </div>
+        <a href="mailto:hi@stella.studio" class="btn-press inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium text-white transition-colors" style="background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); backdrop-filter:blur(6px);">
+          Hablemos
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </nav>
+      <!-- Scrim sobre el fondo difuminado (debajo del cuadro): contraste para
+           la nav arriba y la flecha/chip abajo -->
+      <div class="absolute inset-0 z-0 pointer-events-none"
+           style="background: linear-gradient(to bottom, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 78%, rgba(0,0,0,.45) 100%);"></div>
+
+      <!-- Chip showreel abajo-izquierda (oculto en móvil para no chocar con la flecha) -->
+      <div class="hidden sm:flex absolute bottom-6 left-6 md:left-10 lg:left-14 z-20 px-4 py-2 rounded-full text-[10px] font-semibold tracking-[0.14em] uppercase text-white pointer-events-none items-center gap-2" style="background:rgba(0,0,0,.4); backdrop-filter: blur(8px);">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        Showreel · 26 proyectos
+      </div>
+
+      <!-- Indicador de scroll -->
+      <a href="#projects" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 text-white/75 hover:text-white transition-colors" aria-label="Bajar a los proyectos">
+        <svg class="w-6 h-6 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </a>
+  </header>
+
+  <!-- ============== SECCIÓN PROYECTOS (cabecera + grid) ============== -->
+  <main id="projects" class="px-6 md:px-10 lg:px-14 pt-20 md:pt-24 lg:pt-28 pb-24 w-full">
+    <!-- Cabecera de sección -->
+    <div class="mb-14 md:mb-16">
+      <!-- Fila superior (reparte el ancho): eyebrow · contador -->
+      <div class="flex items-center justify-between gap-4 pb-6 mb-8 border-b border-black/10">
+        <div class="flex items-center gap-3 text-xs uppercase tracking-[0.22em] text-zinc-500 font-medium">
+          <span class="h-px w-9 bg-zinc-400/70"></span>
+          Galería de proyectos
+        </div>
+        <div class="glass px-5 py-2.5 inline-flex items-center gap-3 shrink-0">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-sm text-zinc-600" id="count-label">— proyectos</span>
+        </div>
+      </div>
+      <!-- Título + descripción centrados -->
+      <div class="text-center max-w-3xl mx-auto pt-2">
+        <h1 class="font-heading italic text-5xl md:text-6xl xl:text-7xl 2xl:text-8xl leading-[0.9] tracking-tight text-zinc-900">
+          Webs que convierten
+        </h1>
+        <p class="mt-6 text-zinc-600 font-light text-lg max-w-2xl mx-auto">
+          Una muestra de las webs que podemos diseñar y desarrollar.
+          Explora cada proyecto en vivo y descubre <span class="font-semibold text-zinc-900">lo que podemos crear para tu marca</span>.
+        </p>
+      </div>
+    </div>
+
+    <div id="grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6"></div>
+  </main>
+
+  <!-- ============== FOOTER NOTE ============== -->
+  <footer class="px-6 md:px-10 lg:px-14 pb-12 pt-14 w-full">
+    <div class="h-px w-full bg-black/10 mb-10"></div>
+    <div class="flex items-end justify-between gap-8 flex-wrap">
+      <p class="font-heading italic text-3xl md:text-4xl text-zinc-900 max-w-2xl leading-tight">
+        Cada proyecto es un ejemplo real de lo que podemos crear para tu marca.
+        <span class="text-zinc-400">¿Imaginas la tuya?</span>
+      </p>
+      <div class="text-sm text-zinc-500 flex flex-col md:items-end gap-1 pb-1">
+        <span class="font-heading italic text-lg text-zinc-900">Stella·Studio</span>
+        <a class="hover:text-zinc-900 transition-colors" href="mailto:hi@stella.studio">hi@stella.studio</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============== DATA + LOGIC ============== -->
+  <script src="templates.js"></script>
+  <script>
+    // Al recargar, arrancar SIEMPRE arriba (en el hero), no donde estabas.
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+    window.addEventListener("load", () => window.scrollTo(0, 0));
+
+    const TEMPLATES = window.TEMPLATES;
+
+    // ───── Render ─────
+    const grid = document.getElementById("grid");
+    const countLabel = document.getElementById("count-label");
+    countLabel.textContent = `${TEMPLATES.length} proyecto${TEMPLATES.length === 1 ? "" : "s"}`;
+
+    function cardHTML(t, idx) {
+      return `
+        <article class="glass flex flex-col overflow-hidden group" data-id="${t.id}">
+          <!-- Preview (live iframe + image fallback) -->
+          <div class="relative aspect-[4/3] overflow-hidden border-b border-black/5">
+            <div class="preview-stage" data-stage data-src="${t.path}">
+              <!-- Fondo ambiental: la miniatura difuminada (halo de la misma tonalidad) -->
+              <img
+                src="${t.preview}"
+                alt=""
+                aria-hidden="true"
+                class="preview-bg"
+                onerror="this.style.display='none'"
+              />
+              <!-- Marco central flotante con la miniatura y el live preview -->
+              <div class="preview-frame">
+                <img
+                  src="${t.preview}"
+                  alt="${t.name} preview"
+                  class="preview-image"
+                  onerror="this.style.display='none'"
+                />
+                <!-- iframe se inyecta aquí por JS -->
+              </div>
+              <!-- "EN VIVO" pill (solo al hover cuando iframe está listo) -->
+              <div class="live-pulse">EN VIVO</div>
+              <!-- Hint mientras el iframe carga -->
+              <div class="hover-hint">Cargando live preview…</div>
+            </div>
+
+            <!-- Number badge -->
+            <div class="absolute top-3 right-3 glass px-2.5 py-1 text-[11px] font-medium font-body z-10">
+              #${String(idx + 1).padStart(2, "0")} · ${t.section}
+            </div>
+
+            <!-- Hover overlay invitando a "Ver demo" -->
+            <a
+              href="viewer.html?t=${t.id}"
+              target="_blank"
+              rel="noopener"
+              class="absolute inset-0 z-10 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style="background: linear-gradient(to top, rgba(0,0,0,0.65), transparent 50%);"
+              title="Ver el proyecto en vivo"
+            >
+              <span class="bg-white text-black rounded-full px-4 py-2 text-xs font-semibold inline-flex items-center gap-1.5">
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+                </svg>
+                Ver proyecto
+              </span>
+            </a>
+          </div>
+
+          <!-- Body -->
+          <div class="flex flex-col flex-1 p-5">
+            <div class="text-[11px] uppercase tracking-[0.18em] text-zinc-500 mb-2 font-medium">
+              ${t.type}
+            </div>
+            <h3 class="font-heading italic text-3xl leading-none tracking-tight mb-3">
+              ${t.name}
+            </h3>
+            <div class="flex-1 min-h-4"></div>
+
+            <!-- Action -->
+            <div class="mt-auto">
+              <a
+                href="viewer.html?t=${t.id}"
+                target="_blank"
+                rel="noopener"
+                class="btn-press w-full inline-flex items-center justify-center gap-2 bg-zinc-900 text-white rounded-full px-4 py-2.5 text-sm font-semibold hover:bg-zinc-800 transition-colors"
+                title="Ver el proyecto en vivo"
+              >
+                Ver proyecto
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    grid.innerHTML = TEMPLATES.map(cardHTML).join("");
+
+    // ───── Preloader + entrada 3D ─────
+    // El porcentaje refleja la carga real de las miniaturas. Al llegar al 100%
+    // el loader se desvanece y las cards vuelan desde el fondo (translateZ)
+    // hasta su posición final, una tras otra.
+    (function () {
+      const loader = document.getElementById("loader");
+      const pctEl = document.getElementById("loader-pct");
+      const barEl = document.getElementById("loader-bar");
+      const cards = Array.from(grid.querySelectorAll("article"));
+
+      // Coloca las cards EN FILA hacia el infinito: todas centradas en el
+      // punto de fuga (centro del viewport), cada una más profunda que la
+      // anterior. El loader (opaco) cubre la página mientras tanto.
+      function queueSetup() {
+        const gr = grid.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+        // Punto de fuga DENTRO del grid (centro horizontal, cerca de su parte
+        // alta) para que las cards emerjan bajo el título y no se monten sobre él.
+        const originX = gr.width / 2;
+        const originY = Math.min(gr.height * 0.5, vh * 0.4);
+        grid.style.perspectiveOrigin = originX + "px " + originY + "px";
+        cards.forEach((c, i) => {
+          const r = c.getBoundingClientRect();
+          const dx = originX - (r.left + r.width / 2 - gr.left);
+          const dy = originY - (r.top + r.height / 2 - gr.top);
+          const z = -(850 + i * 460); // fila: cada card más lejos que la anterior
+          c.style.zIndex = String(cards.length - i); // la más cercana, delante
+          c.style.transition = "none";
+          c.style.transform = "translate3d(" + dx + "px, " + dy + "px, " + z + "px)";
+        });
+        void grid.offsetHeight; // aplicar antes de animar
+      }
+
+      // Despegue: una tras otra, cada card vuela del fondo hacia el frente
+      // y se recoloca en su posición final del grid. El z-index escalonado se
+      // mantiene durante TODA la secuencia (aterrizadas siempre por encima:
+      // las que aún vuelan pasan por detrás, nunca por delante) y se limpia
+      // de golpe cuando la última termina.
+      function flyIn() {
+        cards.forEach((c, i) => {
+          setTimeout(() => {
+            c.style.transition =
+              "transform 1.05s cubic-bezier(.22,1,.36,1)";
+            c.style.transform = "none";
+          }, 80 + i * 115);
+        });
+        const totalMs = 80 + (cards.length - 1) * 115 + 1100;
+        setTimeout(() => {
+          cards.forEach((c) => {
+            c.style.zIndex = "";
+            c.style.transition = "";
+            c.style.transform = "";
+          });
+        }, totalMs);
+      }
+
+      const total = TEMPLATES.length;
+      let loadedCount = 0;
+      TEMPLATES.forEach((t) => {
+        const im = new Image();
+        const bump = () => { loadedCount++; };
+        im.onload = bump;
+        im.onerror = bump; // un 404 no debe bloquear el loader
+        im.src = t.preview;
+      });
+
+      const MIN_MS = 1700; // duración mínima del barrido 0→100 (aunque haya caché)
+      let start = null;    // se fija en el PRIMER frame real (robusto a pestaña oculta)
+      let shown = 0;
+      let finished = false;
+
+      // Deja las cards ocultas y dispara el vuelo (fila desde el horizonte)
+      // cuando el grid entra en pantalla al hacer scroll.
+      function armEntranceOnScroll() {
+        cards.forEach((c) => { c.style.opacity = "0"; });
+        let fired = false;
+        const trigger = () => {
+          if (fired) return;
+          fired = true;
+          queueSetup();
+          cards.forEach((c) => { c.style.opacity = "1"; });
+          void grid.offsetHeight;
+          flyIn();
+        };
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) { trigger(); io.disconnect(); } });
+        }, { threshold: 0, rootMargin: "0px 0px -40% 0px" });
+        io.observe(grid);
+        // Fallback por scroll (por si el IO no dispara en algún navegador):
+        // lanza cuando el grid ha entrado ~40% en el viewport.
+        const onScroll = () => {
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+          if (!vh) return;
+          if (grid.getBoundingClientRect().top < vh * 0.6) {
+            trigger();
+            io.disconnect();
+            window.removeEventListener("scroll", onScroll);
+          }
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+      }
+
+      function finish() {
+        if (finished) return;
+        finished = true;
+        pctEl.textContent = "100%";
+        barEl.style.width = "100%";
+        setTimeout(() => {
+          loader.classList.add("done");
+          setTimeout(() => loader.remove(), 600);
+          armEntranceOnScroll();   // el vuelo espera al scroll hasta el grid
+        }, 250);
+      }
+
+      function tick(now) {
+        if (start === null) start = now; // arranca el reloj en el primer frame visible
+        const real = (loadedCount / total) * 100;
+        const allLoaded = loadedCount >= total;
+        // Barrido temporal 0→100 garantizado (easing suave), frenado por la
+        // carga real solo si la red va más lenta que el barrido.
+        const t = Math.min(1, (now - start) / MIN_MS);
+        const timeTarget = 100 * (1 - Math.pow(1 - t, 2)); // ease-out
+        const cap = allLoaded ? 100 : Math.min(95, real + 15);
+        const target = Math.min(timeTarget, cap);
+        if (target > shown) shown = target;
+        pctEl.textContent = Math.floor(shown) + "%";
+        barEl.style.width = shown + "%";
+        if (allLoaded && shown >= 99.5) {
+          finish();
+        } else {
+          requestAnimationFrame(tick);
+        }
+      }
+      requestAnimationFrame(tick);
+
+      // Salvavidas: nunca dejar al usuario atrapado en el loader.
+      setTimeout(finish, 12000);
+    })();
+
+    // ───── Live preview iframes ─────
+    // Strategy:
+    //   - Cada card muestra siempre la preview.png como fondo.
+    //   - Al primer hover de la card, inyectamos un <iframe> con la plantilla
+    //     renderizada a 1440×1080 (virtual desktop) escalada al tamaño de la card.
+    //   - Cuando el iframe termina de cargar Y se le da tiempo a renderizar React,
+    //     marcamos la stage como "iframe-ready" → el CSS lo hace visible al hover.
+    //   - ResizeObserver mantiene el escalado correcto al redimensionar.
+    const VIRTUAL_W = 1440;
+    const VIRTUAL_H = 1080;
+    // Cap de seguridad: si la plantilla no ha pintado en este tiempo, se revela
+    // igualmente. Normalmente se revela antes, en cuanto React pinta el hero.
+    const MAX_PAINT_WAIT = 3500;
+
+    function fitIframe(stage, iframe) {
+      // Medidas fraccionarias reales (clientWidth/Height redondean a entero y
+      // dejaban el iframe corto). Escalamos para cubrir con overscan y CENTRAMOS
+      // el sobrante para que se recorte por igual en los 4 lados → sin bordes.
+      const host = stage.querySelector(".preview-frame") || stage;
+      const rect = host.getBoundingClientRect();
+      const w = rect.width;
+      const h = rect.height;
+      if (!w || !h) return;
+      const OVERSCAN = 4; // px extra repartidos, recortados por overflow:hidden
+      const scale = Math.max((w + OVERSCAN) / VIRTUAL_W, (h + OVERSCAN) / VIRTUAL_H);
+      const tx = (w - VIRTUAL_W * scale) / 2;
+      const ty = (h - VIRTUAL_H * scale) / 2;
+      iframe.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+    }
+
+    function activateStage(stage, onReady) {
+      if (stage.dataset.activated === "1") { if (onReady) onReady(); return; }
+      stage.dataset.activated = "1";
+
+      const src = stage.dataset.src;
+      const iframe = document.createElement("iframe");
+      iframe.setAttribute("title", "Live preview");
+      iframe.setAttribute(
+        "sandbox",
+        "allow-scripts allow-same-origin allow-popups allow-forms"
+      );
+
+      let done = false;
+      const reveal = () => {
+        if (done) return;
+        done = true;
+        iframe.classList.add("ready");
+        stage.classList.add("iframe-ready");
+        fitIframe(stage, iframe);
+        if (onReady) onReady();
+      };
+
+      iframe.addEventListener("load", () => {
+        // Ocultar las barras de scroll del iframe: el contenido desborda (dos
+        // secciones + vídeo al 120%), así que salían barras grises a la derecha
+        // y abajo que se veían como bordes feos sobre el preview.
+        try {
+          const doc = iframe.contentDocument;
+          if (doc) {
+            const st = doc.createElement("style");
+            st.textContent =
+              "html,body{overflow:hidden!important;}" +
+              "::-webkit-scrollbar{width:0!important;height:0!important;display:none!important;}";
+            (doc.head || doc.documentElement).appendChild(st);
+          }
+        } catch (e) {}
+        // Revelar en cuanto la plantilla realmente pinta (React/Babel han
+        // renderizado el hero), en vez de esperar un retardo fijo.
+        const started = performance.now();
+        const poll = () => {
+          let painted = false;
+          try {
+            const doc = iframe.contentDocument;
+            const el = doc && doc.querySelector("section, main");
+            painted = !!(el && el.getBoundingClientRect().height > 80);
+          } catch (e) { painted = true; }
+          if (painted || performance.now() - started > MAX_PAINT_WAIT) {
+            requestAnimationFrame(reveal);
+          } else {
+            requestAnimationFrame(poll);
+          }
+        };
+        requestAnimationFrame(poll);
+      });
+      // Salvavidas: si 'load' no llega, no bloquear la cola de precarga.
+      setTimeout(reveal, MAX_PAINT_WAIT + 1500);
+
+      iframe.src = src;
+      (stage.querySelector(".preview-frame") || stage).appendChild(iframe);
+
+      // Escalado inicial + observador de resize
+      requestAnimationFrame(() => fitIframe(stage, iframe));
+      const ro = new ResizeObserver(() => fitIframe(stage, iframe));
+      ro.observe(stage);
+    }
+
+    // Precarga: activamos los iframes cuando la card se acerca al viewport, con
+    // concurrencia limitada para no bloquear la página. Así el hover es
+    // instantáneo. El hover activa de inmediato (salta la cola).
+    const MAX_CONCURRENT = 2;
+    let loading = 0;
+    const queue = [];
+    function pump() {
+      while (loading < MAX_CONCURRENT && queue.length) {
+        const stage = queue.shift();
+        if (stage.dataset.activated === "1") continue;
+        loading++;
+        activateStage(stage, () => { loading = Math.max(0, loading - 1); pump(); });
+      }
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        const stage = entry.target.querySelector("[data-stage]");
+        if (stage && stage.dataset.activated !== "1") queue.push(stage);
+      });
+      pump();
+    }, { rootMargin: "400px 0px" });
+
+    grid.querySelectorAll("[data-stage]").forEach((stage) => {
+      const card = stage.closest("article");
+      io.observe(card);
+      // Fallback: si el usuario hace hover antes de que le toque en la cola.
+      card.addEventListener("mouseenter", () => activateStage(stage), { once: true });
+    });
+  </script>
+</body>
+</html>
