@@ -506,6 +506,24 @@
       });
     }
 
+    // Sincronizar el fondo difuminado con el reel: son dos <video> del mismo
+    // archivo y si arrancan con desfase el cambio de escena del fondo se
+    // adelanta al del marco. El fondo sigue el reloj del reel y se corrige
+    // solo cuando deriva (>80ms) para no provocar micro-saltos.
+    const bgVid = document.querySelector('header video[aria-hidden="true"]');
+    if (bgVid && reel) {
+      const syncBg = () => {
+        if (reel.readyState >= 2 && bgVid.readyState >= 2 &&
+            Math.abs(bgVid.currentTime - reel.currentTime) > 0.08) {
+          bgVid.currentTime = reel.currentTime;
+        }
+      };
+      reel.addEventListener("play", () => { syncBg(); const p = bgVid.play(); if (p && p.catch) p.catch(() => {}); });
+      reel.addEventListener("pause", () => bgVid.pause());
+      reel.addEventListener("seeked", syncBg);
+      setInterval(syncBg, 1000);
+    }
+
     // ───── Render ─────
     const grid = document.getElementById("grid");
     const countLabel = document.getElementById("count-label");
