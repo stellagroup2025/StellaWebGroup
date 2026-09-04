@@ -343,6 +343,17 @@
     </div>
   </footer>
 
+  <!-- Consola de debug para móvil: abrir con ?debug=1 en la URL para ver
+       errores de JS en un iPhone/Android sin cable. Sin el parámetro no carga nada. -->
+  <script>
+    if (new URLSearchParams(location.search).has("debug")) {
+      var _e = document.createElement("script");
+      _e.src = "https://cdn.jsdelivr.net/npm/eruda";
+      _e.onload = function () { window.eruda && window.eruda.init(); };
+      document.head.appendChild(_e);
+    }
+  </script>
+
   <!-- ============== DATA + LOGIC ============== -->
   <script src="/galeria/templates.js"></script>
   <script>
@@ -398,6 +409,8 @@
                 alt=""
                 aria-hidden="true"
                 class="preview-bg"
+                loading="lazy"
+                decoding="async"
                 onerror="this.style.display='none'"
               />
               <!-- Marco central flotante con la miniatura y el live preview -->
@@ -406,6 +419,8 @@
                   src="${t.preview}"
                   alt="${t.name} preview"
                   class="preview-image"
+                  loading="lazy"
+                  decoding="async"
                   onerror="this.style.display='none'"
                 />
                 <!-- iframe se inyecta aquí por JS -->
@@ -529,13 +544,20 @@
 
       const total = TEMPLATES.length;
       let loadedCount = 0;
-      TEMPLATES.forEach((t) => {
-        const im = new Image();
-        const bump = () => { loadedCount++; };
-        im.onload = bump;
-        im.onerror = bump; // un 404 no debe bloquear el loader
-        im.src = t.preview;
-      });
+      if (IS_MOBILE) {
+        // Móvil: NO pre-descargar ~17MB de previews (en 4G el loader se
+        // eternizaba y la página parecía muerta). El loader hace su barrido
+        // corto y las imágenes cargan lazy según se scrollea.
+        loadedCount = total;
+      } else {
+        TEMPLATES.forEach((t) => {
+          const im = new Image();
+          const bump = () => { loadedCount++; };
+          im.onload = bump;
+          im.onerror = bump; // un 404 no debe bloquear el loader
+          im.src = t.preview;
+        });
+      }
 
       const MIN_MS = 1700; // duración mínima del barrido 0→100 (aunque haya caché)
       let start = null;    // se fija en el PRIMER frame real (robusto a pestaña oculta)
