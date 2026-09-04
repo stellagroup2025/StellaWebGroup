@@ -5,6 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stella·Studio — Galería de proyectos</title>
 
+  <!-- Diagnóstico temporal: reporta errores JS e hitos de carga a /api/glog
+       para depurar en móviles sin cable (logs de Vercel). Va ANTES de todo
+       para capturar incluso fallos de los scripts externos. Retirar al cerrar
+       la incidencia. -->
+  <script>
+    (function () {
+      var sid = Math.random().toString(36).slice(2, 8);
+      function glog(ev, extra) {
+        try {
+          var payload = JSON.stringify({
+            sid: sid, ev: ev, extra: extra || null,
+            t: Math.round(performance.now()),
+            url: location.pathname + location.search,
+            vw: window.innerWidth + "x" + window.innerHeight,
+            ua: navigator.userAgent.slice(0, 120)
+          });
+          if (navigator.sendBeacon) navigator.sendBeacon("/api/glog", payload);
+          else fetch("/api/glog", { method: "POST", body: payload, keepalive: true }).catch(function(){});
+        } catch (e) {}
+      }
+      window.__glog = glog;
+      glog("boot");
+      window.addEventListener("error", function (e) {
+        glog("js-error", (e.message || "?") + " @ " + (e.filename || "?") + ":" + (e.lineno || "?"));
+      });
+      window.addEventListener("unhandledrejection", function (e) {
+        glog("promise-error", String(e.reason).slice(0, 200));
+      });
+      window.addEventListener("DOMContentLoaded", function () { glog("dom-ready"); });
+      window.addEventListener("load", function () {
+        glog("load", { tw: typeof window.tailwind !== "undefined", tpl: typeof window.TEMPLATES !== "undefined" ? window.TEMPLATES.length : "no" });
+        setTimeout(function () {
+          var v = document.querySelector("video");
+          glog("estado-5s", {
+            loader: !!document.getElementById("loader"),
+            cards: document.querySelectorAll("#grid article").length,
+            video: v ? (v.paused ? "PAUSADO" : "reproduciendo") + " rs=" + v.readyState : "NO HAY"
+          });
+        }, 5000);
+      });
+    })();
+  </script>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
