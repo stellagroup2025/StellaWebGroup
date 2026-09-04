@@ -12,6 +12,19 @@
   <script>
     (function () {
       var sid = Math.random().toString(36).slice(2, 8);
+      var DEBUG = /[?&]debug/.test(location.search);
+      var panel = null;
+      function panelLine(text) {
+        if (!DEBUG) return;
+        try {
+          if (!panel) {
+            panel = document.createElement("div");
+            panel.style.cssText = "position:fixed;left:0;right:0;bottom:0;z-index:99999;background:rgba(0,0,0,.85);color:#0f0;font:10px/1.5 monospace;padding:6px 8px;max-height:45vh;overflow:auto;pointer-events:none;white-space:pre-wrap;";
+            (document.body || document.documentElement).appendChild(panel);
+          }
+          panel.textContent += text + "\n";
+        } catch (e) {}
+      }
       function glog(ev, extra) {
         try {
           var payload = JSON.stringify({
@@ -21,6 +34,7 @@
             vw: window.innerWidth + "x" + window.innerHeight,
             ua: navigator.userAgent.slice(0, 120)
           });
+          panelLine("[" + Math.round(performance.now()) + "ms] " + ev + " " + (extra ? JSON.stringify(extra) : ""));
           if (navigator.sendBeacon) navigator.sendBeacon("/api/glog", payload);
           else fetch("/api/glog", { method: "POST", body: payload, keepalive: true }).catch(function(){});
         } catch (e) {}
@@ -37,11 +51,11 @@
       window.addEventListener("load", function () {
         glog("load", { tw: typeof window.tailwind !== "undefined", tpl: typeof window.TEMPLATES !== "undefined" ? window.TEMPLATES.length : "no" });
         setTimeout(function () {
-          var v = document.querySelector("video");
+          var v = document.getElementById("hero-reel") || document.querySelector("video");
           glog("estado-5s", {
             loader: !!document.getElementById("loader"),
             cards: document.querySelectorAll("#grid article").length,
-            video: v ? (v.paused ? "PAUSADO" : "reproduciendo") + " rs=" + v.readyState : "NO HAY"
+            video: v ? (v.paused ? "PAUSADO" : "play") + " rs=" + v.readyState + " ct=" + v.currentTime.toFixed(2) + " " + v.videoWidth + "x" + v.videoHeight : "NO HAY"
           });
         }, 5000);
       });
@@ -448,22 +462,44 @@
     );
     document.addEventListener("visibilitychange", () => { if (!document.hidden) kickAll(); });
 
-    // Si tras un tiempo el reel sigue parado (autoplay bloqueado de verdad),
-    // mostrar el botón ▶. Un toque reproduce todos los vídeos del hero.
+    // Botón ▶ de respaldo. OJO: en iOS el vídeo puede reportar paused=false
+    // sin llegar a pintar NINGÚN frame (queda el poster). Por eso la señal
+    // fiable no es paused, sino "¿se ha renderizado algún frame de verdad?"
+    // (requestVideoFrameCallback, soportado por WebKit).
     const playBtn = document.getElementById("hero-play-btn");
     const reel = document.getElementById("hero-reel");
     if (playBtn && reel) {
-      const syncBtn = () => {
-        playBtn.style.display = reel.paused ? "flex" : "none";
+      let frameSeen = false;
+      const markFrame = () => {
+        frameSeen = true;
+        playBtn.style.display = "none";
+        if (window.__glog) window.__glog("frame-renderizado", "t=" + reel.currentTime.toFixed(2));
       };
-      setTimeout(syncBtn, 2500);
-      setInterval(syncBtn, 4000);
-      reel.addEventListener("play", syncBtn);
-      reel.addEventListener("pause", syncBtn);
+      if ("requestVideoFrameCallback" in HTMLVideoElement.prototype) {
+        reel.requestVideoFrameCallback(markFrame);
+      } else {
+        reel.addEventListener("timeupdate", function onTU() {
+          if (reel.currentTime > 0.05) { reel.removeEventListener("timeupdate", onTU); markFrame(); }
+        });
+      }
+      const syncBtn = () => {
+        playBtn.style.display = frameSeen ? "none" : "flex";
+      };
+      setTimeout(syncBtn, 2000);
+      const iv = setInterval(() => { syncBtn(); if (frameSeen) clearInterval(iv); }, 3000);
       playBtn.addEventListener("click", (e) => {
         e.preventDefault(); e.stopPropagation();
-        kickAll();
-        setTimeout(syncBtn, 300);
+        // Kick agresivo dentro del gesto del usuario: recargar si no hay
+        // datos (ahorro de datos de iOS) y reproducir todos los vídeos.
+        heroVideos.forEach((v) => {
+          try { if (v.readyState === 0) v.load(); } catch (err) {}
+          v.muted = true;
+          const p = v.play();
+          if (p && p.then) {
+            p.then(() => { if (window.__glog) window.__glog("tap-play-ok", "rs=" + v.readyState); })
+             .catch((err) => { if (window.__glog) window.__glog("tap-play-error", err.name + ": " + err.message); });
+          }
+        });
       });
     }
 
