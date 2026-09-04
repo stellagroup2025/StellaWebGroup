@@ -6,6 +6,10 @@ const nextConfig = {
   poweredByHeader: false,
   async rewrites() {
     return [
+      // La galería se sirve como documento de nivel superior (sin iframe) para
+      // que el scroll, las animaciones de las cards y el autoplay de vídeo
+      // funcionen bien en móvil (iOS rompe el scroll dentro de iframes).
+      { source: "/galeriaLandings", destination: "/galeria/index.html" },
       { source: "/galeria", destination: "/galeria/index.html" },
     ]
   },
