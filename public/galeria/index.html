@@ -361,6 +361,26 @@
       preview: BASE + t.preview,
     }));
 
+    // Detección de táctil/móvil: en estos dispositivos se simplifican las
+    // animaciones (Safari iOS glitchea con translateZ grandes) y se desactiva
+    // la precarga de live previews (no hay hover y ahogan al iPhone).
+    const IS_TOUCH =
+      window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window;
+    const IS_MOBILE = IS_TOUCH || window.matchMedia("(max-width: 820px)").matches;
+
+    // iOS puede bloquear/retrasar el autoplay (Low Power Mode, datos, etc.).
+    // Reintentar play() programático al cargar y al primer toque.
+    document.querySelectorAll("video[autoplay]").forEach((v) => {
+      v.muted = true; // requisito de iOS para play() sin gesto
+      const kick = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+      kick();
+      v.addEventListener("loadedmetadata", kick, { once: true });
+      ["touchstart", "click", "scroll"].forEach((ev) =>
+        window.addEventListener(ev, kick, { once: true, passive: true })
+      );
+      document.addEventListener("visibilitychange", () => { if (!document.hidden) kick(); });
+    });
+
     // ───── Render ─────
     const grid = document.getElementById("grid");
     const countLabel = document.getElementById("count-label");
@@ -530,6 +550,29 @@
         const trigger = () => {
           if (fired) return;
           fired = true;
+          if (IS_MOBILE) {
+            // Móvil/táctil: fade-up escalonado simple. El vuelo 3D
+            // (perspective + translateZ enormes) glitchea en Safari iOS.
+            cards.forEach((c) => {
+              c.style.transition = "none";
+              c.style.transform = "translateY(28px)";
+            });
+            void grid.offsetHeight;
+            cards.forEach((c, i) => {
+              setTimeout(() => {
+                c.style.transition =
+                  "transform .7s cubic-bezier(.22,1,.36,1), opacity .7s ease";
+                c.style.opacity = "1";
+                c.style.transform = "none";
+              }, 60 + i * 70);
+            });
+            setTimeout(() => {
+              cards.forEach((c) => {
+                c.style.transition = ""; c.style.transform = ""; c.style.opacity = "";
+              });
+            }, 60 + cards.length * 70 + 800);
+            return;
+          }
           queueSetup();
           cards.forEach((c) => { c.style.opacity = "1"; });
           void grid.offsetHeight;
@@ -551,6 +594,9 @@
           }
         };
         window.addEventListener("scroll", onScroll, { passive: true });
+        // Salvavidas: pase lo que pase (IO/scroll fallando en algún navegador),
+        // el grid NUNCA se queda invisible.
+        setTimeout(trigger, 7000);
       }
 
       function finish() {
@@ -711,12 +757,17 @@
       pump();
     }, { rootMargin: "400px 0px" });
 
-    grid.querySelectorAll("[data-stage]").forEach((stage) => {
-      const card = stage.closest("article");
-      io.observe(card);
-      // Fallback: si el usuario hace hover antes de que le toque en la cola.
-      card.addEventListener("mouseenter", () => activateStage(stage), { once: true });
-    });
+    // En táctil no hay hover: los live previews no se ven nunca y cargar 26
+    // plantillas en iframes ahoga al móvil (mata el autoplay del hero y el
+    // scroll). Se queda la preview.png estática, que es lo que ya se muestra.
+    if (!IS_TOUCH) {
+      grid.querySelectorAll("[data-stage]").forEach((stage) => {
+        const card = stage.closest("article");
+        io.observe(card);
+        // Fallback: si el usuario hace hover antes de que le toque en la cola.
+        card.addEventListener("mouseenter", () => activateStage(stage), { once: true });
+      });
+    }
   </script>
 </body>
 </html>
