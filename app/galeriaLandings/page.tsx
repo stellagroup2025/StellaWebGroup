@@ -13,6 +13,7 @@ export default function GaleriaLandingsPage() {
     <iframe
       src="/galeria/index.html"
       title="Galería de Landings"
+      allow="autoplay; fullscreen; picture-in-picture"
       style={{
         position: 'fixed',
         inset: 0,
