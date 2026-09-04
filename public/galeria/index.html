@@ -299,18 +299,30 @@
       <!-- Fondo difuminado del propio reel: rellena el hero alrededor del cuadro -->
       <video
         src="/galeria/hero-promo.mp4"
-        autoplay muted loop playsinline aria-hidden="true"
+        poster="/galeria/hero-poster.jpg"
+        autoplay muted loop playsinline preload="auto" aria-hidden="true"
         class="absolute inset-0 w-full h-full object-cover z-0"
         style="filter: blur(34px) saturate(1.15); transform: scale(1.25);"
       ></video>
       <!-- El reel como CUADRO central enmarcado (redondeado + sombra) -->
       <div class="absolute inset-0 z-[1] flex items-center justify-center p-4 sm:p-8 lg:p-14">
-        <div class="w-full max-w-[1700px] max-h-full overflow-hidden rounded-xl sm:rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,.5)] ring-1 ring-white/10" style="aspect-ratio:16/9;">
+        <div class="relative w-full max-w-[1700px] max-h-full overflow-hidden rounded-xl sm:rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,.5)] ring-1 ring-white/10" style="aspect-ratio:16/9;">
           <video
             src="/galeria/hero-promo.mp4"
-            autoplay muted loop playsinline
+            poster="/galeria/hero-poster.jpg"
+            autoplay muted loop playsinline preload="auto"
+            id="hero-reel"
             class="w-full h-full object-cover"
           ></video>
+          <!-- Respaldo si iOS bloquea el autoplay (Low Power Mode, ahorro de
+               datos…): botón ▶ visible solo si el vídeo sigue parado. -->
+          <button
+            id="hero-play-btn"
+            aria-label="Reproducir showreel"
+            style="display:none; position:absolute; inset:0; margin:auto; width:76px; height:76px; border-radius:9999px; background:rgba(0,0,0,.55); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.35); color:#fff; align-items:center; justify-content:center; z-index:5; cursor:pointer;"
+          >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" style="margin-left:4px"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </div>
       </div>
 
@@ -424,16 +436,36 @@
 
     // iOS puede bloquear/retrasar el autoplay (Low Power Mode, datos, etc.).
     // Reintentar play() programático al cargar y al primer toque.
-    document.querySelectorAll("video[autoplay]").forEach((v) => {
+    const heroVideos = [...document.querySelectorAll("video[autoplay]")];
+    const kickAll = () => heroVideos.forEach((v) => {
       v.muted = true; // requisito de iOS para play() sin gesto
-      const kick = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
-      kick();
-      v.addEventListener("loadedmetadata", kick, { once: true });
-      ["touchstart", "click", "scroll"].forEach((ev) =>
-        window.addEventListener(ev, kick, { once: true, passive: true })
-      );
-      document.addEventListener("visibilitychange", () => { if (!document.hidden) kick(); });
+      const p = v.play(); if (p && p.catch) p.catch(() => {});
     });
+    kickAll();
+    heroVideos.forEach((v) => v.addEventListener("loadedmetadata", kickAll, { once: true }));
+    ["touchstart", "click", "scroll"].forEach((ev) =>
+      window.addEventListener(ev, kickAll, { once: true, passive: true })
+    );
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) kickAll(); });
+
+    // Si tras un tiempo el reel sigue parado (autoplay bloqueado de verdad),
+    // mostrar el botón ▶. Un toque reproduce todos los vídeos del hero.
+    const playBtn = document.getElementById("hero-play-btn");
+    const reel = document.getElementById("hero-reel");
+    if (playBtn && reel) {
+      const syncBtn = () => {
+        playBtn.style.display = reel.paused ? "flex" : "none";
+      };
+      setTimeout(syncBtn, 2500);
+      setInterval(syncBtn, 4000);
+      reel.addEventListener("play", syncBtn);
+      reel.addEventListener("pause", syncBtn);
+      playBtn.addEventListener("click", (e) => {
+        e.preventDefault(); e.stopPropagation();
+        kickAll();
+        setTimeout(syncBtn, 300);
+      });
+    }
 
     // ───── Render ─────
     const grid = document.getElementById("grid");
